@@ -1,0 +1,51 @@
+[
+  {
+    "relativeMoves": [
+      {
+        "x": 1,
+        "y": 0
+      },
+      {
+        "x": 2,
+        "y": 0
+      }
+    ],
+    "name": "Way of tiger"
+  },
+  {
+    "relativeMoves": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "name": "TestCard"
+  },
+  {
+    "relativeMoves": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "name": "Way of Monkey"
+  },
+  {
+    "relativeMoves": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "name": "Way of the Birb"
+  },
+  {
+    "relativeMoves": [
+      {
+        "x": 1,
+        "y": 0
+      }
+    ],
+    "name": "Way of Doge"
+  }
+]
