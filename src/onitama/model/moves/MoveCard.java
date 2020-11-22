@@ -29,6 +29,14 @@ public class MoveCard {
         return moves;
     }
 
+    public ArrayList<Point> getRelativeMoves() {
+        return relativeMoves;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return name;

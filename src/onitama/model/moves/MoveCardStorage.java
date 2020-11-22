@@ -52,4 +52,15 @@ public class MoveCardStorage {
     }
 
 
+    //For testing purpose only
+    public static MoveCard getRandomCard(){
+        try{
+            MoveCardStorage cs = new MoveCardStorage("cards.json");
+            return cs.getRandomCards(1).get(0);
+        }catch (Exception e){
+            return null;
+        }
+
+    }
+
 }
