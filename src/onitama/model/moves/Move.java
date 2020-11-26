@@ -13,6 +13,22 @@ public class Move {
         this.destination = destination;
     }
 
+    public Figure getFigure() {
+        return figure;
+    }
+
+    public void setFigure(Figure figure) {
+        this.figure = figure;
+    }
+
+    public Field getDestination() {
+        return destination;
+    }
+
+    public void setDestination(Field destination) {
+        this.destination = destination;
+    }
+
     public void makeMove(){
         figure.move(destination);
     }

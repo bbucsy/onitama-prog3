@@ -3,11 +3,13 @@ package onitama.model;
 import onitama.model.figures.Figure;
 import onitama.model.moves.Move;
 import onitama.model.moves.MoveCard;
+import onitama.utils.ObservedSubject;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player extends ObservedSubject<List<MoveCard>>{
 
     private List<Figure> figures;
     private List<MoveCard> cards;
@@ -15,6 +17,15 @@ public class Player {
 
     private MoveCard selectedCard;
     private Figure selectedFigure;
+    private Color color;
+    private boolean isTurn = false;
+
+    public Player(Game game, Color color) {
+        this.game = game;
+        this.color = color;
+        this.cards = new ArrayList<>();
+        this.figures = new ArrayList<>();
+    }
 
     public List<Move> getAvaibleMoves(){
         if(selectedCard != null && selectedFigure != null){
@@ -23,14 +34,12 @@ public class Player {
         return null;
     }
 
-    public void makeMove(int i){
-        if(selectedCard != null && selectedFigure != null){
-            selectedCard.getAvaibleMoves(selectedFigure).get(i).makeMove();
-            cards.remove(selectedCard);
-            cards.add(game.exchangeCards(selectedCard));
-            selectedCard = null;
-            selectedFigure = null;
-        }
+    public void nexTurn(){
+        cards.remove(selectedCard);
+        cards.add(game.nextTurn(selectedCard));
+        selectedCard = null;
+        selectedFigure = null;
+        this.fireUpdated();
     }
 
 
@@ -50,12 +59,6 @@ public class Player {
         this.selectedFigure = selectedFigure;
     }
 
-    public Player(Game g) {
-        game = g;
-        cards = new ArrayList<>();
-        figures = new ArrayList<>();
-    }
-
     public void addFigure(Figure f) {
         figures.add(f);
     }
@@ -71,6 +74,15 @@ public class Player {
 
     public void addCard(MoveCard card) {
         cards.add(card);
+        this.fireUpdated();
+    }
+
+    public boolean isTurn() {
+        return isTurn;
+    }
+
+    public void setTurn(boolean turn) {
+        isTurn = turn;
     }
 
     public List<Figure> getFigures() {
@@ -79,6 +91,15 @@ public class Player {
 
     public List<MoveCard> getCards() {
         return cards;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    @Override
+    protected List<MoveCard> getMessage() {
+        return this.cards;
     }
 
 

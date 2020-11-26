@@ -1,5 +1,6 @@
 package onitama;
 
+import onitama.controller.GameController;
 import onitama.model.*;
 import onitama.model.board.Board;
 import onitama.model.moves.Move;
@@ -19,8 +20,12 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
-        GameFrame gf = new GameFrame();
-
+        try{
+            GameFrame gf = new GameFrame();
+            Game game = new Game();
+            GameController controller = new GameController(game,gf);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

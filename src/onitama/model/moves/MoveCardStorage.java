@@ -26,16 +26,6 @@ public class MoveCardStorage {
 
     }
 
-
-    public void saveCardList() throws IOException {
-        GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
-        Gson gson = builder.create();
-        FileWriter writer = new FileWriter("cards.json");
-        writer.write(gson.toJson(cards));
-        writer.close();
-    }
-
-
     public List<MoveCard> getRandomCards(int amount){
         if (amount > cards.size()) throw new IllegalArgumentException();
 
@@ -47,20 +37,8 @@ public class MoveCardStorage {
             returnCards.add(rc);
             cards.remove(rc);
         }
-
         return returnCards;
     }
 
-
-    //For testing purpose only
-    public static MoveCard getRandomCard(){
-        try{
-            MoveCardStorage cs = new MoveCardStorage("cards.json");
-            return cs.getRandomCards(1).get(0);
-        }catch (Exception e){
-            return null;
-        }
-
-    }
 
 }

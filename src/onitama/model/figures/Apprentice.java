@@ -2,6 +2,7 @@ package onitama.model.figures;
 
 import onitama.model.board.Field;
 import onitama.model.Player;
+import onitama.model.board.FigureType;
 
 import java.security.InvalidParameterException;
 
@@ -37,7 +38,7 @@ public class Apprentice implements Figure{
 
     @Override
     public Player getPlayer() {
-        return null;
+        return this.player;
     }
 
     public Field getCurrentField() {
@@ -48,6 +49,10 @@ public class Apprentice implements Figure{
         this.currentField = currentField;
     }
 
+    @Override
+    public FigureType getFigureType() {
+        return FigureType.Apprentice;
+    }
 
     @Override
     public String toString() {

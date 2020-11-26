@@ -15,6 +15,7 @@ public class CardPanel extends ImagePanel {
     private JPanel[][] squares;
     private JPanel squareLayoutPanel;
     private MoveCard card;
+    private boolean highlighted = false;
 
     public CardPanel() {
         super("res/card.png");
@@ -54,6 +55,11 @@ public class CardPanel extends ImagePanel {
         if (card == null) return;
         nameLabel.setText(card.getName());
 
+        if(highlighted)
+            this.setBorder(BorderFactory.createLineBorder(Color.yellow,5,true));
+        else
+            this.setBorder(null);
+
 
         //reset grid
         for (int i = 0; i < 5; i++) {
@@ -73,6 +79,11 @@ public class CardPanel extends ImagePanel {
 
     public MoveCard getCard() {
         return card;
+    }
+
+    public void setHighlighted(boolean b){
+        this.highlighted = b;
+        this.renderCard();
     }
 
     public void setCard(MoveCard card) {

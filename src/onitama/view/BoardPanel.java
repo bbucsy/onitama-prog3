@@ -25,15 +25,13 @@ public class BoardPanel extends JPanel {
             for (int j = 0; j < 5; j++) {
                 SquarePanel p = new SquarePanel(new Point(i,j));
                 squares[i][j] = p;
-                if (i == 2 && j == 2) p.setHighlight(SquarePanel.HighlightLevel.HIGH);
-                if (i == 2 && j == 1) p.setHighlight(SquarePanel.HighlightLevel.MEDIUM);
-                if (i == 2 && j == 3) p.setHighlight(SquarePanel.HighlightLevel.MEDIUM);
-                if (i == 1 && j == 2) p.setHighlight(SquarePanel.HighlightLevel.MEDIUM);
-                if (i == 3 && j == 2) p.setHighlight(SquarePanel.HighlightLevel.MEDIUM);
                 add(p);
             }
         }
-
-
     }
+
+    public SquarePanel getSquare(int i, int j){
+        return squares[i][j];
+    }
+
 }

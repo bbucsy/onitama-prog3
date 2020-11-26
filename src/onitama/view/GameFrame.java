@@ -16,14 +16,14 @@ public class GameFrame extends JFrame {
     private CardHolderPanel cardPanelDown;
     private JPanel gamePanel;
     private JPanel sidePanel;
-    private CardPanel exchangeCard;
+    private ExchangeCard exchangeCard;
 
     public GameFrame() {
         super("Onitama");
         boardPanel = new BoardPanel();
         cardPanelUp = new CardHolderPanel();
         cardPanelDown = new CardHolderPanel();
-        exchangeCard = new CardPanel();
+        exchangeCard = new ExchangeCard();
         gamePanel = new JPanel(new BorderLayout());
         sidePanel = new JPanel(new GridLayout(5,1,20,0));
         initialize();
@@ -83,4 +83,20 @@ public class GameFrame extends JFrame {
         this.setJMenuBar(bar);
     }
 
+
+    public BoardPanel getBoardPanel() {
+        return boardPanel;
+    }
+
+    public CardHolderPanel getCardPanelUp() {
+        return cardPanelUp;
+    }
+
+    public CardHolderPanel getCardPanelDown() {
+        return cardPanelDown;
+    }
+
+    public ExchangeCard getExchangeCard() {
+        return exchangeCard;
+    }
 }

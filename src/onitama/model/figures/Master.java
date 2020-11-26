@@ -2,6 +2,7 @@ package onitama.model.figures;
 
 import onitama.model.board.Field;
 import onitama.model.Player;
+import onitama.model.board.FigureType;
 
 public class Master extends Apprentice {
 
@@ -21,6 +22,11 @@ public class Master extends Apprentice {
     public void die() {
         player.loose();
         super.die();
+    }
+
+    @Override
+    public FigureType getFigureType() {
+        return FigureType.Master;
     }
 
     @Override
