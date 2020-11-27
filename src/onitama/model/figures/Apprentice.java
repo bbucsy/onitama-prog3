@@ -1,15 +1,14 @@
 package onitama.model.figures;
 
-import onitama.model.board.Field;
+import onitama.model.board.AbstractField;
 import onitama.model.Player;
-import onitama.model.board.FigureType;
 
 import java.security.InvalidParameterException;
 
 public class Apprentice implements Figure{
 
-    protected Player player;
-    protected Field currentField;
+    protected final Player player;
+    protected AbstractField currentField;
 
     public Apprentice(Player p){
         player = p;
@@ -17,7 +16,7 @@ public class Apprentice implements Figure{
 
 
     @Override
-    public void move(Field f) {
+    public void moveTo(AbstractField f) {
         f.accept(this);
         currentField.setFigure(null);
         currentField = f;
@@ -41,11 +40,11 @@ public class Apprentice implements Figure{
         return this.player;
     }
 
-    public Field getCurrentField() {
+    public AbstractField getCurrentField() {
         return currentField;
     }
 
-    public void setCurrentField(Field currentField) {
+    public void setCurrentField(AbstractField currentField) {
         this.currentField = currentField;
     }
 

@@ -3,15 +3,14 @@ package onitama.model.board;
 import onitama.model.figures.Apprentice;
 import onitama.model.figures.Figure;
 import onitama.model.figures.Master;
-import onitama.utils.ObservedSubject;
 
 import java.awt.*;
 
-public class SimpleField extends ObservedSubject<Figure> implements Field{
+public class SimpleField extends AbstractField {
 
-    private Board board;
+    private final Board board;
     private Figure currentFigure;
-    private Point pos;
+    private final Point pos;
 
     public SimpleField(Board b,Point p){
         pos = p;

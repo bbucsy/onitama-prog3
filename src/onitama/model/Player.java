@@ -1,47 +1,62 @@
 package onitama.model;
 
 import onitama.model.figures.Figure;
+import onitama.model.moves.Hand;
 import onitama.model.moves.Move;
 import onitama.model.moves.MoveCard;
-import onitama.utils.ObservedSubject;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends ObservedSubject<List<MoveCard>>{
+public class Player {
 
-    private List<Figure> figures;
-    private List<MoveCard> cards;
-    private Game game;
+    private final Game game;
+    private final Color color;
 
+    private final List<Figure> figures;
+    private final Hand hand;
     private MoveCard selectedCard;
     private Figure selectedFigure;
-    private Color color;
     private boolean isTurn = false;
 
     public Player(Game game, Color color) {
         this.game = game;
         this.color = color;
-        this.cards = new ArrayList<>();
+        this.hand = new Hand(2);
         this.figures = new ArrayList<>();
     }
 
-    public List<Move> getAvaibleMoves(){
+    public List<Move> getAvailableMoves(){
         if(selectedCard != null && selectedFigure != null){
-            return selectedCard.getAvaibleMoves(selectedFigure);
+            return selectedCard.getAvailableMoves(selectedFigure);
         }
         return null;
     }
 
-    public void nexTurn(){
-        cards.remove(selectedCard);
-        cards.add(game.nextTurn(selectedCard));
-        selectedCard = null;
-        selectedFigure = null;
-        this.fireUpdated();
+    public List<Move> getAllPossibleMoves(){
+        ArrayList<Move> result = new ArrayList<>();
+        for (MoveCard card : hand.getCards()) {
+            for (Figure figure: figures){
+                result.addAll(card.getAvailableMoves(figure));
+            }
+        }
+        return result;
     }
 
+    public void executeMove(Move move){
+        if(move.getPlayer() != this || !hand.getCards().contains(move.getParentCard()) || !figures.contains(move.getFigure()))
+            throw new IllegalArgumentException("Player can't execute this move");
+        move.getFigure().moveTo(move.getDestination());
+        hand.setCard(game.exchangeCard(move.getParentCard()),move.getParentCard());
+        this.selectedFigure = null;
+        this.selectedCard = null;
+        game.nextTurn();
+    }
+
+    public void loose() {
+        game.setGameFinished(true);
+    }
 
     public MoveCard getSelectedCard() {
         return selectedCard;
@@ -67,16 +82,6 @@ public class Player extends ObservedSubject<List<MoveCard>>{
         figures.remove(f);
     }
 
-
-    public void loose() {
-        System.out.println("Player lsot");
-    }
-
-    public void addCard(MoveCard card) {
-        cards.add(card);
-        this.fireUpdated();
-    }
-
     public boolean isTurn() {
         return isTurn;
     }
@@ -89,24 +94,19 @@ public class Player extends ObservedSubject<List<MoveCard>>{
         return figures;
     }
 
-    public List<MoveCard> getCards() {
-        return cards;
+    public Hand getHand() {
+        return hand;
     }
 
     public Color getColor() {
         return color;
     }
 
-    @Override
-    protected List<MoveCard> getMessage() {
-        return this.cards;
-    }
-
 
     @Override
     public String toString() {
         return "{" +
-                "cards=" + cards +
+                "cards=" + hand +
                 '}';
     }
 }

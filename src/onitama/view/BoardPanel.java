@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class BoardPanel extends JPanel {
 
-    private SquarePanel[][] squares;
+    private final SquarePanel[][] squares;
 
     public BoardPanel() {
         super();

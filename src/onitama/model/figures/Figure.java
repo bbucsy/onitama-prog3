@@ -1,15 +1,14 @@
 package onitama.model.figures;
 
-import onitama.model.board.Field;
+import onitama.model.board.AbstractField;
 import onitama.model.Player;
-import onitama.model.board.FigureType;
 
 public interface Figure {
-    void move(Field f);
+    void moveTo(AbstractField f);
     void die();
     void hitByFigure(Figure f);
-    void setCurrentField(Field currentField);
+    void setCurrentField(AbstractField currentField);
     Player getPlayer();
-    Field getCurrentField();
+    AbstractField getCurrentField();
     FigureType getFigureType();
 }

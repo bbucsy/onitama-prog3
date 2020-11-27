@@ -1,5 +1,6 @@
 package onitama.model.moves;
 
+import onitama.model.board.AbstractField;
 import onitama.model.board.Board;
 import onitama.model.figures.Figure;
 
@@ -9,25 +10,38 @@ import java.util.List;
 
 public class MoveCard {
 
-    private ArrayList<Point> relativeMoves;
+    private final ArrayList<Point> relativeMoves;
     private String name;
     private int orientation = 1;
 
-    public MoveCard() {
-        relativeMoves = new ArrayList<Point>();
+    private MoveCard() {
+        relativeMoves = new ArrayList<>();
+        name = "MoveCard";
     }
 
-    public List<Move> getAvaibleMoves(Figure f) {
+    public List<Move> getAvailableMoves(Figure f) {
         ArrayList<Move> moves = new ArrayList<>();
         Point base = f.getCurrentField().getPosition();
         Board board = f.getCurrentField().getBoard();
         for (Point p : getRelativeMoves()) {
             Point newPos = new Point(base.x + p.x, base.y + p.y);
-            if(newPos.x >=0 && newPos.x <= 4 && newPos.y >=0 && newPos.y <= 4)
-                moves.add(new Move(f,board.getField(newPos)));
+            if(positionInBound(newPos)){
+                AbstractField targetField = board.getField(newPos);
+                if(!hitOwnFigure(f,targetField.getFigure()))
+                    moves.add(new Move(f,targetField,this));
+            }
         }
 
         return moves;
+    }
+
+    private boolean positionInBound(Point pos){
+        return (pos.x >=0 && pos.x <= 4 && pos.y >=0 && pos.y <= 4);
+    }
+
+    private boolean hitOwnFigure(Figure movingFigure, Figure target){
+        if(target == null) return false;
+        return (movingFigure.getPlayer() == target.getPlayer());
     }
 
     public MoveCard changeOrientation(){

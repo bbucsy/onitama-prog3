@@ -1,8 +1,7 @@
 package onitama.model.figures;
 
-import onitama.model.board.Field;
+import onitama.model.board.AbstractField;
 import onitama.model.Player;
-import onitama.model.board.FigureType;
 
 public class Master extends Apprentice {
 
@@ -12,7 +11,7 @@ public class Master extends Apprentice {
     }
 
     @Override
-    public void move(Field f) {
+    public void moveTo(AbstractField f) {
         f.accept(this);
         currentField.setFigure(null);
         currentField = f;

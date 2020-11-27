@@ -4,16 +4,15 @@ import onitama.model.moves.MoveCard;
 import onitama.utils.ImagePanel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class CardPanel extends ImagePanel {
 
-    private JLabel nameLabel;
-    private JPanel[][] squares;
-    private JPanel squareLayoutPanel;
+    private final JLabel nameLabel;
+    private final JPanel[][] squares;
+    private final JPanel squareLayoutPanel;
     private MoveCard card;
     private boolean highlighted = false;
 

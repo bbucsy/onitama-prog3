@@ -1,17 +1,14 @@
 package onitama.view;
 
-import onitama.model.board.Field;
-import onitama.model.board.FigureType;
+import onitama.model.figures.FigureType;
 import onitama.model.figures.Figure;
 import onitama.model.moves.Move;
 import onitama.utils.ImagePanel;
-import onitama.utils.ObservedSubject;
 import onitama.utils.SubjectObserver;
 
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Observer;
 
 public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
 
@@ -22,7 +19,7 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
     }
 
     private HighlightLevel highlight = HighlightLevel.NO;
-    private Point position;
+    private final Point position;
     private FigureType figure = FigureType.None;
     private Color figureColor;
     private Move possibleMove;
@@ -56,7 +53,7 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
     }
 
     @Override
-    public void update(ObservedSubject<Figure> sender, Figure message) {
+    public void update(Figure message) {
         if (message == null) this.figure = FigureType.None;
         else{
             this.figure = message.getFigureType();

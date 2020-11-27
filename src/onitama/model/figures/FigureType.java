@@ -1,4 +1,4 @@
-package onitama.model.board;
+package onitama.model.figures;
 
 public enum FigureType {
     None,

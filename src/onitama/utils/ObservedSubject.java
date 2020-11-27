@@ -5,7 +5,7 @@ import java.util.List;
 
 public abstract class ObservedSubject <T> {
 
-    private transient List<SubjectObserver<T>> observers;
+    private final transient List<SubjectObserver<T>> observers;
 
 
     public ObservedSubject(){
@@ -14,7 +14,7 @@ public abstract class ObservedSubject <T> {
 
     public void attachObserver(SubjectObserver<T> observer){
         observers.add(observer);
-        observer.update(this,this.getMessage());
+        observer.update(this.getMessage());
     }
 
     public void removeObserver(SubjectObserver<T> observer){
@@ -22,8 +22,8 @@ public abstract class ObservedSubject <T> {
     }
 
     protected void fireUpdated(){
-        for(SubjectObserver observer : observers){
-            observer.update(this,this.getMessage());
+        for(SubjectObserver<T> observer : observers){
+            observer.update(this.getMessage());
         }
     }
 

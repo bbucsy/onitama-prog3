@@ -20,10 +20,6 @@ public class ImagePanel extends JPanel {
         super();
     }
 
-    public ImagePanel(BufferedImage image){
-
-    }
-
     protected void loadImage(String path) {
         try {
             bg = processImageBefore(ImageIO.read(new File(path)));
@@ -41,10 +37,6 @@ public class ImagePanel extends JPanel {
         super.paintComponent(g);
         Dimension d = getSize();
         g.drawImage(bg, 0, 0, d.width, d.height, null);
-    }
-
-    public Image getBackgroundImage() {
-        return bg;
     }
 
     public void setBackgroundImage(BufferedImage img) {

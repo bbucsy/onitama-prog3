@@ -1,8 +1,6 @@
 package onitama.view;
 
 import onitama.model.moves.MoveCard;
-import onitama.model.moves.MoveCardStorage;
-import onitama.utils.ObservedSubject;
 import onitama.utils.SubjectObserver;
 
 import javax.swing.*;
@@ -11,31 +9,34 @@ import java.util.List;
 
 public class CardHolderPanel extends JPanel implements SubjectObserver<List<MoveCard>> {
 
-    private CardPanel[] cards;
+    private final CardPanel[] cards;
+    private final int n;
 
-    public CardHolderPanel() {
+    public CardHolderPanel(int n) {
         super();
-        cards = new CardPanel[2];
+        this.n = n;
+        cards = new CardPanel[n];
         initialize();
     }
 
 
 
     private void initialize(){
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < n; i++) {
             cards[i] = new CardPanel();
             this.add(cards[i]);
         }
         this.setBackground(Color.lightGray);
     }
 
-    public CardPanel getCards(int i) {
+    public CardPanel getCard(int i) {
         return cards[i];
     }
 
     @Override
-    public void update(ObservedSubject<List<MoveCard>> sender, List<MoveCard> message) {
-        for (int i = 0; i < 2; i++) {
+    public void update(List<MoveCard> message) {
+        if (message.size() != n) return;
+        for (int i = 0; i < n; i++) {
            cards[i].setCard(message.get(i));
         }
     }

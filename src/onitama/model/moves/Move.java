@@ -1,36 +1,37 @@
 package onitama.model.moves;
 
-import onitama.model.board.Field;
+import onitama.model.Player;
+import onitama.model.board.AbstractField;
 import onitama.model.figures.Figure;
 
 public class Move {
 
-    private Figure figure;
-    private Field destination;
+    private final Figure figure;
+    private final AbstractField destination;
+    private final MoveCard parentCard;
+    private final Player player;
 
-    public Move(Figure figure, Field destination) {
+    public Move(Figure figure, AbstractField destination, MoveCard parentCard) {
         this.figure = figure;
         this.destination = destination;
+        this.parentCard = parentCard;
+        this.player = figure.getPlayer();
     }
+
 
     public Figure getFigure() {
         return figure;
     }
 
-    public void setFigure(Figure figure) {
-        this.figure = figure;
-    }
-
-    public Field getDestination() {
+    public AbstractField getDestination() {
         return destination;
     }
 
-    public void setDestination(Field destination) {
-        this.destination = destination;
+    public MoveCard getParentCard() {
+        return parentCard;
     }
 
-    public void makeMove(){
-        figure.move(destination);
+    public Player getPlayer() {
+        return player;
     }
-
 }
