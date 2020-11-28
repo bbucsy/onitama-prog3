@@ -6,8 +6,7 @@ import onitama.model.moves.MoveCard;
 import onitama.utils.MoveCardStorage;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Stack;
 
 public class Game implements Serializable {
@@ -60,6 +59,16 @@ public class Game implements Serializable {
         }
         playerOnTurn = (playerOnTurn+1)% 2;
     }
+
+    public Game deepClone() throws IOException, ClassNotFoundException {
+        ByteArrayOutputStream temp = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(temp);
+        out.writeObject(this);
+
+        ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(temp.toByteArray()));
+        return (Game) in.readObject();
+    }
+
 
     public boolean isGameFinished() {
         return gameFinished;
