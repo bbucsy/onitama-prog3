@@ -1,30 +1,37 @@
 package onitama.utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class ObservedSubject <T> {
+public abstract class ObservedSubject<T> implements Serializable {
 
-    private final transient List<SubjectObserver<T>> observers;
+    //Observers are part of the UI, so we don't save references to them
+    //during serialization.
+    private transient List<SubjectObserver<T>> observers;
 
 
-    public ObservedSubject(){
-        observers = new ArrayList<>();
+    public ObservedSubject() {
     }
 
-    public void attachObserver(SubjectObserver<T> observer){
+    public void attachObserver(SubjectObserver<T> observer) {
+        if (observers == null)
+            observers = new ArrayList<>();
+
         observers.add(observer);
         observer.update(this.getMessage());
     }
 
-    public void removeObserver(SubjectObserver<T> observer){
-        observers.remove(observer);
+    public void removeObserver(SubjectObserver<T> observer) {
+        if (observers != null)
+            observers.remove(observer);
     }
 
-    protected void fireUpdated(){
-        for(SubjectObserver<T> observer : observers){
-            observer.update(this.getMessage());
-        }
+    protected void fireUpdated() {
+        if (observers != null)
+            for (SubjectObserver<T> observer : observers) {
+                observer.update(this.getMessage());
+            }
     }
 
     protected abstract T getMessage();

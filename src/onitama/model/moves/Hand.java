@@ -2,10 +2,11 @@ package onitama.model.moves;
 
 import onitama.utils.ObservedSubject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Hand extends ObservedSubject<List<MoveCard>> {
+public class Hand extends ObservedSubject<List<MoveCard>> implements Serializable {
 
     private final List<MoveCard> cards;
     private final int max;

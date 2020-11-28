@@ -6,10 +6,11 @@ import onitama.model.moves.Move;
 import onitama.model.moves.MoveCard;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Serializable {
 
     private final Game game;
     private final Color color;

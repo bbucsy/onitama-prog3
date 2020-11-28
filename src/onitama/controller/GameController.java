@@ -14,6 +14,8 @@ import onitama.view.SquarePanel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class GameController {
@@ -49,12 +51,30 @@ public class GameController {
 
 
     public void StartGame(){
-
+ /*
         while (!model.isGameFinished()){
             nextTurn();
         }
 
-        System.out.println("Game is finished");
+        System.out.println("Game is finished");*/
+
+        nextTurn();
+        nextTurn();
+        nextTurn();
+        nextTurn();
+        testSaveGame(model);
+        System.out.println("Game saved");
+    }
+
+    private void testSaveGame(Game game){
+        try {
+            FileOutputStream f = new FileOutputStream("test.savegame");
+            ObjectOutputStream out = new ObjectOutputStream(f);
+            out.writeObject(game);
+            out.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void nextTurn() {

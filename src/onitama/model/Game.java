@@ -7,9 +7,10 @@ import onitama.utils.MoveCardStorage;
 
 import java.awt.*;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.Stack;
 
-public class Game {
+public class Game implements Serializable {
 
     private static final Color[] playerColors = new Color[]{Color.BLUE, Color.ORANGE};
 

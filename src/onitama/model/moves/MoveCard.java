@@ -5,10 +5,11 @@ import onitama.model.board.Board;
 import onitama.model.figures.Figure;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoveCard {
+public class MoveCard implements Serializable {
 
     private final ArrayList<Point> relativeMoves;
     private String name;

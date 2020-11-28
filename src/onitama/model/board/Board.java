@@ -7,8 +7,9 @@ import onitama.model.figures.Figure;
 import onitama.model.figures.Master;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Board {
+public class Board implements Serializable {
 
     private final AbstractField[][] fields;
     private final Game game;

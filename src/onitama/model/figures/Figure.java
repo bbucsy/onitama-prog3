@@ -3,7 +3,9 @@ package onitama.model.figures;
 import onitama.model.board.AbstractField;
 import onitama.model.Player;
 
-public interface Figure {
+import java.io.Serializable;
+
+public interface Figure extends Serializable {
     void moveTo(AbstractField f);
     void die();
     void hitByFigure(Figure f);
