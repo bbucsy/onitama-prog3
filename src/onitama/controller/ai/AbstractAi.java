@@ -14,8 +14,9 @@ public abstract class AbstractAi {
         this.player = player;
     }
 
-    public void ExecuteMove(){
+    public AbstractAi(){ }
 
+    public void ExecuteMove(){
         Move nextMove = this.getNextMove();
         if (nextMove == null) player.loose();
         player.executeMove(nextMove);
@@ -24,4 +25,19 @@ public abstract class AbstractAi {
 
     protected abstract Move getNextMove();
 
+    public Game getModel() {
+        return model;
+    }
+
+    public void setModel(Game model) {
+        this.model = model;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }

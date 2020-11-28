@@ -50,6 +50,10 @@ public class MoveCard implements Serializable {
         return this;
     }
 
+    public void resetOrientation(){
+        orientation = 1;
+    }
+
     public ArrayList<Point> getRelativeMoves() {
         ArrayList<Point> result = new ArrayList<>();
         for(Point p: relativeMoves){

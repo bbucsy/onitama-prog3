@@ -11,6 +11,7 @@ import onitama.view.CardPanel;
 import onitama.view.GameFrame;
 import onitama.view.SquarePanel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,10 +27,10 @@ public class GameController {
 
     private final PlayerLock lock = new PlayerLock();
 
-    public GameController(Game model, GameFrame gui, AbstractAi player1, AbstractAi player2) {
+    public GameController(Game model, GameFrame gui, AbstractAi[] AIPlayers) {
         this.model = model;
         this.gui = gui;
-        this.AIPlayers = new AbstractAi[] {player1,player2};
+        this.AIPlayers = AIPlayers;
         initActions();
     }
 
@@ -51,16 +52,20 @@ public class GameController {
 
 
     public void startGame(){
-        while (!model.isGameFinished()){
+        while (model.getState() == Game.GameState.RUNNING){
             nextTurn();
         }
-        System.out.println("Game is finished");
+
+        String gameOverMessage = "Game Over! \n" + ((model.getState() == Game.GameState.PLAYER_1_WON)? "Player1":"Player2") + " won the match";
+
+        JOptionPane.showMessageDialog(this.gui,gameOverMessage);
+
     }
 
     private void nextTurn() {
 
         int currentPlayer = model.getPlayerOnTurn();
-
+        System.out.println("Next turn");
         if(AIPlayers[currentPlayer] == null){
             // Human player's turn, wait for input.
             try {

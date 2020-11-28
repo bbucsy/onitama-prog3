@@ -16,6 +16,12 @@ public class RandomAi extends AbstractAi {
         rand = new Random();
     }
 
+    public RandomAi() {
+        super();
+        rand = new Random();
+    }
+
+
     @Override
     protected Move getNextMove() {
         List<Move> possibleMoves = player.getAllPossibleMoves();

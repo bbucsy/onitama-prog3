@@ -56,7 +56,7 @@ public class Player implements Serializable {
     }
 
     public void loose() {
-        game.setGameFinished(true);
+        game.playerLost(this);
     }
 
     public MoveCard getSelectedCard() {
@@ -103,11 +103,4 @@ public class Player implements Serializable {
         return color;
     }
 
-
-    @Override
-    public String toString() {
-        return "{" +
-                "cards=" + hand +
-                '}';
-    }
 }

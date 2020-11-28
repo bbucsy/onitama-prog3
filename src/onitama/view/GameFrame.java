@@ -1,5 +1,6 @@
 package onitama.view;
 
+import onitama.controller.MainController;
 import onitama.model.Game;
 
 import javax.swing.*;
@@ -89,6 +90,8 @@ public class GameFrame extends JFrame {
 
         exitToMainMenuItem = new JMenuItem("Exit to MainMenu");
         exitToMainMenuItem.addActionListener(e -> {
+            MainController.getInstance().getMainFrame().setVisible(true);
+            this.dispose();
         });
         file.add(exitToMainMenuItem);
 

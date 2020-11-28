@@ -14,21 +14,31 @@ import java.util.Stack;
 
 public class MoveCardStorage {
 
-
+    private static final MoveCardStorage instance = new MoveCardStorage();
     private final List<MoveCard> cards;
 
-    public MoveCardStorage(String filepath) throws FileNotFoundException {
+
+    private MoveCardStorage(){
+        cards = new ArrayList<>();
+    }
+
+    public static MoveCardStorage getInstance(){return instance;}
+
+    public void loadCards(String filepath) throws FileNotFoundException {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
         FileReader fr = new FileReader(filepath);
         Type cardListType = new TypeToken<List<MoveCard>>() {}.getType();
-        cards = gson.fromJson(fr, cardListType);
+
+        List<MoveCard> loaded = gson.fromJson(fr, cardListType);
+        cards.addAll(loaded);
 
     }
 
     public Stack<MoveCard> getRandomCards(int amount){
         if (amount > cards.size()) throw new IllegalArgumentException();
 
+        resetCardOrientations();
         List<MoveCard> clone = new ArrayList<>(cards);
         Stack<MoveCard> returnCards = new Stack<>();
         Random rand = new Random();
@@ -39,6 +49,12 @@ public class MoveCardStorage {
             clone.remove(rc);
         }
         return returnCards;
+    }
+
+    private void resetCardOrientations(){
+        for (MoveCard card : cards){
+            card.resetOrientation();
+        }
     }
 
 

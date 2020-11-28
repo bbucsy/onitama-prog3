@@ -11,21 +11,27 @@ import java.util.Stack;
 
 public class Game implements Serializable {
 
+
+    public enum GameState{
+        RUNNING,
+        PLAYER_1_WON,
+        PLAYER_2_WON
+    }
+
+
     private static final Color[] playerColors = new Color[]{Color.BLUE, Color.ORANGE};
 
     private final Player[] players;
     private final Board board;
     private final Hand exchangeCard;
     private int playerOnTurn = 0;
-    private boolean gameFinished = false;
+    private GameState state = GameState.RUNNING;
 
-    public Game() throws FileNotFoundException {
+    public Game() {
         exchangeCard = new Hand(1);
         players = new Player[2];
 
-
-        MoveCardStorage cardStorage = new MoveCardStorage("cards.json");
-        Stack<MoveCard> cards = cardStorage.getRandomCards(5);
+        Stack<MoveCard> cards = MoveCardStorage.getInstance().getRandomCards(5);
         exchangeCard.setCard(cards.pop(), 0);
         initPlayers(cards);
 
@@ -70,12 +76,21 @@ public class Game implements Serializable {
     }
 
 
-    public boolean isGameFinished() {
-        return gameFinished;
+
+    public void playerLost(Player looser){
+
+        if(players[0] == looser){
+            state = GameState.PLAYER_2_WON;
+        } else  if (players[1] == looser){
+            state = GameState.PLAYER_1_WON;
+        }
+        else {
+            state = GameState.RUNNING;
+        }
     }
 
-    public void setGameFinished(boolean gameFinished) {
-        this.gameFinished = gameFinished;
+    public GameState getState() {
+        return state;
     }
 
     public Player getPlayer(int i) {
