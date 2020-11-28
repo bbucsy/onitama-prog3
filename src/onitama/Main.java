@@ -3,6 +3,7 @@ package onitama;
 import onitama.controller.GameController;
 import onitama.model.*;
 import onitama.utils.ResourceManager;
+import onitama.view.ErrorReport;
 import onitama.view.GameFrame;
 
 import java.io.*;
@@ -21,8 +22,8 @@ public class Main {
             GameController controller = new GameController(game,frame,null,null);
             controller.startGame();
 
-        }catch (IOException e){
-            e.printStackTrace();
+        }catch (Exception e){
+            ErrorReport er = new ErrorReport(e);
         }
 
     }
