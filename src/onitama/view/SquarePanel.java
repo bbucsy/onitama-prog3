@@ -27,7 +27,7 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
     public SquarePanel(Point position) {
         super();
         this.position = position;
-        loadImage("res/board.png");
+        loadImage("board.png");
 
     }
 

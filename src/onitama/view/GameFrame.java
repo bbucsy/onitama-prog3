@@ -16,17 +16,20 @@ public class GameFrame extends JFrame {
     private final JPanel gamePanel;
     private final JPanel sidePanel;
 
+    private JMenuItem saveMenuItem;
+    private JMenuItem exitToMainMenuItem;
+
     public GameFrame(Game model) {
         super("Onitama");
         this.model = model;
         boardPanel = new BoardPanel();
         gamePanel = new JPanel(new BorderLayout());
-        sidePanel = new JPanel(new GridLayout(5,1,20,0));
+        sidePanel = new JPanel(new GridLayout(5, 1, 20, 0));
         cardHolders = new CardHolderPanel[3];
         initialize();
     }
 
-    private void initialize(){
+    private void initialize() {
         initializeLayout();
         initializeObservers();
         initializeJMenu();
@@ -36,22 +39,22 @@ public class GameFrame extends JFrame {
 
     private void initializeLayout() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(900,1000);
+        this.setSize(900, 1000);
         this.setResizable(false);
 
         for (int i = 0; i < 3; i++)
-            cardHolders[i] = new CardHolderPanel((i==2)?1:2);
+            cardHolders[i] = new CardHolderPanel((i == 2) ? 1 : 2);
 
-        gamePanel.add(cardHolders[0],BorderLayout.NORTH);
-        gamePanel.add(boardPanel,BorderLayout.CENTER);
-        gamePanel.add(cardHolders[1],BorderLayout.SOUTH);
+        gamePanel.add(cardHolders[0], BorderLayout.NORTH);
+        gamePanel.add(boardPanel, BorderLayout.CENTER);
+        gamePanel.add(cardHolders[1], BorderLayout.SOUTH);
 
         sidePanel.add(new JLabel());
         sidePanel.add(new JLabel());
         sidePanel.add(cardHolders[2]);
 
-        this.add(gamePanel,BorderLayout.CENTER);
-        this.add(sidePanel,BorderLayout.EAST);
+        this.add(gamePanel, BorderLayout.CENTER);
+        this.add(sidePanel, BorderLayout.EAST);
     }
 
 
@@ -62,14 +65,14 @@ public class GameFrame extends JFrame {
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                model.getBoard().getField(i,j).attachObserver(boardPanel.getSquare(i,j));
+                model.getBoard().getField(i, j).attachObserver(boardPanel.getSquare(i, j));
             }
         }
 
     }
 
 
-    private void initializeJMenu(){
+    private void initializeJMenu() {
 
         JMenuBar bar = new JMenuBar();
 
@@ -79,13 +82,14 @@ public class GameFrame extends JFrame {
         bar.add(file);
 
 
-
-        JMenuItem saveMenuItem = new JMenuItem("Save Game");
-        saveMenuItem.addActionListener(e -> { });
+        saveMenuItem = new JMenuItem("Save Game");
+        saveMenuItem.addActionListener(e -> {
+        });
         file.add(saveMenuItem);
 
-        JMenuItem exitToMainMenuItem = new JMenuItem("Exit to MainMenu");
-        exitToMainMenuItem.addActionListener(e -> { });
+        exitToMainMenuItem = new JMenuItem("Exit to MainMenu");
+        exitToMainMenuItem.addActionListener(e -> {
+        });
         file.add(exitToMainMenuItem);
 
         JMenuItem exitMenuItem = new JMenuItem("Exit Program");

@@ -17,7 +17,7 @@ public class CardPanel extends ImagePanel {
     private boolean highlighted = false;
 
     public CardPanel() {
-        super("res/card.png");
+        super("card.png");
         nameLabel = new JLabel("CardName");
         squares = new JPanel[5][5];
         squareLayoutPanel = new JPanel();

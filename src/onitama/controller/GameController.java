@@ -50,31 +50,11 @@ public class GameController {
     }
 
 
-    public void StartGame(){
- /*
+    public void startGame(){
         while (!model.isGameFinished()){
             nextTurn();
         }
-
-        System.out.println("Game is finished");*/
-
-        nextTurn();
-        nextTurn();
-        nextTurn();
-        nextTurn();
-        testSaveGame(model);
-        System.out.println("Game saved");
-    }
-
-    private void testSaveGame(Game game){
-        try {
-            FileOutputStream f = new FileOutputStream("test.savegame");
-            ObjectOutputStream out = new ObjectOutputStream(f);
-            out.writeObject(game);
-            out.close();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        System.out.println("Game is finished");
     }
 
     private void nextTurn() {
@@ -93,11 +73,7 @@ public class GameController {
         else{
             AIPlayers[currentPlayer].ExecuteMove();
         }
-
-
-
     }
-
 
     private class CardMouseListener extends MouseAdapter {
 

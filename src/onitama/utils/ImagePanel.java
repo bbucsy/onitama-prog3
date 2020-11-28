@@ -20,12 +20,8 @@ public class ImagePanel extends JPanel {
         super();
     }
 
-    protected void loadImage(String path) {
-        try {
-            bg = processImageBefore(ImageIO.read(new File(path)));
-        } catch (IOException e) {
-            System.out.println("Cannot find image");
-        }
+    protected void loadImage(String name) {
+            bg = processImageBefore(ResourceManager.getInstance().getResource(name));
     }
 
     protected BufferedImage processImageBefore(BufferedImage img) {
