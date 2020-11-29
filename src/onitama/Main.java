@@ -17,6 +17,7 @@ public class Main {
             ResourceManager.getInstance().loadResources(resources);
             // load card pack;
             MoveCardStorage.getInstance().loadCards("basic.json");
+            MoveCardStorage.getInstance().loadCards("dlc.json");
 
         }catch (Exception e){
             new ErrorReport(e);
