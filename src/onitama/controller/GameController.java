@@ -1,6 +1,7 @@
 package onitama.controller;
 
 import onitama.controller.ai.AbstractAi;
+import onitama.controller.ai.PlayerController;
 import onitama.model.Game;
 import onitama.model.Player;
 import onitama.model.board.AbstractField;
@@ -23,11 +24,11 @@ public class GameController {
 
     private final Game model;
     private final GameFrame gui;
-    private final AbstractAi[] AIPlayers;
+    private final PlayerController[] AIPlayers;
 
     private final PlayerLock lock = new PlayerLock();
 
-    public GameController(Game model, GameFrame gui, AbstractAi[] AIPlayers) {
+    public GameController(Game model, GameFrame gui, PlayerController[] AIPlayers) {
         this.model = model;
         this.gui = gui;
         this.AIPlayers = AIPlayers;

@@ -1,7 +1,5 @@
 package onitama.controller.ai;
 
-import onitama.model.Game;
-import onitama.model.Player;
 import onitama.model.moves.Move;
 
 import java.util.List;
@@ -10,11 +8,6 @@ import java.util.Random;
 public class RandomAi extends AbstractAi {
 
     Random rand;
-
-    public RandomAi(Game model, Player player) {
-        super(model, player);
-        rand = new Random();
-    }
 
     public RandomAi() {
         super();

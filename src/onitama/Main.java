@@ -1,16 +1,10 @@
 package onitama;
 
-import onitama.controller.GameController;
+
 import onitama.controller.MainController;
-import onitama.controller.ai.AbstractAi;
-import onitama.model.*;
 import onitama.utils.MoveCardStorage;
 import onitama.utils.ResourceManager;
 import onitama.view.ErrorReport;
-import onitama.view.GameFrame;
-import onitama.view.MainMenuFrame;
-
-import java.io.*;
 
 public class Main {
 

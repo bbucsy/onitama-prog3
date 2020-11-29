@@ -3,6 +3,7 @@ package onitama.view;
 import onitama.controller.GameController;
 import onitama.controller.MainController;
 import onitama.controller.ai.AbstractAi;
+import onitama.controller.ai.PlayerController;
 import onitama.model.Game;
 
 import javax.swing.*;
@@ -60,7 +61,7 @@ public class MainMenuFrame extends JFrame {
     private void initializeListeners() {
 
         newGame.addActionListener(actionEvent -> {
-            MainController.getInstance().launchGame(new AbstractAi[]{playerPanel1.getPlayerType(),playerPanel2.getPlayerType()});
+            MainController.getInstance().launchGame(new PlayerController[]{playerPanel1.getPlayerType(),playerPanel2.getPlayerType()});
         });
 
     }

@@ -1,6 +1,6 @@
 package onitama.controller;
 
-import onitama.controller.ai.AbstractAi;
+import onitama.controller.ai.PlayerController;
 import onitama.model.Game;
 import onitama.view.GameFrame;
 import onitama.view.MainMenuFrame;
@@ -24,7 +24,7 @@ public class MainController {
     }
 
 
-    public void launchGame( AbstractAi[] players){
+    public void launchGame( PlayerController[] players){
         SwingWorker gameLauncher = new SwingWorker() {
             @Override
             protected Object doInBackground() throws Exception {

@@ -97,6 +97,13 @@ public class Game implements Serializable {
             return players[i];
     }
 
+    public int getPlayerNumber(Player p){
+        for (int i = 0; i < 2; i++) {
+            if(players[i] == p) return i;
+        }
+        throw new IllegalArgumentException("Player reference not in game");
+    }
+
     public Hand getExchangeCard() {
         return exchangeCard;
     }
