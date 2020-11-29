@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class RandomAi extends AbstractAi {
 
-    Random rand;
+    final Random rand;
 
     public RandomAi() {
         super();

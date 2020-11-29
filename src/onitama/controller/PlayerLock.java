@@ -3,20 +3,26 @@ package onitama.controller;
 public class PlayerLock {
 
     private final Object lock = new Object();
-    private boolean isLocked = false;
+    private boolean waitingForInput = false;
 
 
     public void waitForPlayerInput() throws InterruptedException {
         synchronized (lock){
-            isLocked = false;
-            while (!isLocked)
+            waitingForInput = true;
+            while (waitingForInput)
                 lock.wait();
+        }
+    }
+
+    public boolean isWaitingForInput(){
+        synchronized (lock){
+            return waitingForInput;
         }
     }
 
     public void playerInputDone(){
         synchronized (lock){
-            isLocked = true;
+            waitingForInput = false;
             lock.notify();
         }
     }

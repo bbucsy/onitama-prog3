@@ -18,7 +18,7 @@ public class Master extends Apprentice {
     }
 
     @Override
-    public void die() {
+    protected void die() {
         player.loose();
         super.die();
     }

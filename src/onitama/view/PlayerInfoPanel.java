@@ -1,13 +1,10 @@
 package onitama.view;
 
 import onitama.model.Player;
-import onitama.model.figures.Figure;
-import onitama.model.figures.FigureType;
 import onitama.utils.SubjectObserver;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 
 public class PlayerInfoPanel extends JPanel implements SubjectObserver<Player> {

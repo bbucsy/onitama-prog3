@@ -38,7 +38,15 @@ public class MinMaxAi extends AbstractAi {
                 Game clonedModel = model.deepClone();
                 Player clonedPlayer = clonedModel.getPlayer(playerNumber);
                 clonedPlayer.executeMove(clonedPlayer.getAllPossibleMoves().get(i));
-                moveScores.put(possibleMoves.get(i),MinMaxEvaluate(clonedModel,1));
+
+
+                double score = MinMaxEvaluate(clonedModel,1);
+                // if move is instant win don't look for other moves
+                if (Double.isInfinite(score) && score > 0)
+                    return possibleMoves.get(i);
+
+
+                moveScores.put(possibleMoves.get(i),score);
             }
             catch (Exception e){
                 // shouldn't be here, but if possible get random move
@@ -66,7 +74,13 @@ public class MinMaxAi extends AbstractAi {
             Game clonedModel = model.deepClone();
             Player clonedPlayer = clonedModel.getPlayer(currentPlayer);
             clonedPlayer.executeMove(clonedPlayer.getAllPossibleMoves().get(i));
-            moveScores.add(MinMaxEvaluate(clonedModel,level+1));
+            double score = MinMaxEvaluate(clonedModel,level+1);
+            if (Double.isInfinite(score)){
+                if((level%2==0 && score > 0) || (level%2 == 1 && score < 0))
+                    return score;
+            }
+
+            moveScores.add(score);
         }
 
        return (level%2 == 0)? Collections.max(moveScores): Collections.min(moveScores);
@@ -74,7 +88,7 @@ public class MinMaxAi extends AbstractAi {
 
     private double evaluateLeafScore(Game model) {
 
-        // Return POS/NEG infty if game is over;
+        // Return POS/NEG infinity if game is over;
 
         if ((model.getState() == Game.GameState.PLAYER_1_WON && playerNumber == 0) ||
                 (model.getState() == Game.GameState.PLAYER_2_WON && playerNumber == 1))

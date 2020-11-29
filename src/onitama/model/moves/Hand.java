@@ -11,47 +11,33 @@ public class Hand extends ObservedSubject<List<MoveCard>> implements Serializabl
     private final List<MoveCard> cards;
     private final int max;
 
-    public Hand(int max){
+    public Hand(int max) {
         this.max = max;
         cards = new ArrayList<>();
     }
 
-    public boolean addCard(MoveCard card){
-        if(cards.size() < max){
+    public void addCard(MoveCard card) {
+        if (cards.size() < max) {
             cards.add(card);
             fireUpdated();
-            return true;
         }
-        return false;
     }
 
-    public boolean removeCard(MoveCard card){
-        boolean success = cards.remove(card);
-        if (success)
-            fireUpdated();
-        return success;
-    }
 
-    public boolean setCard(MoveCard card, int i){
-        if(i >= max) return false;
-        if(i < cards.size())
+    public void setCard(MoveCard card, int i) {
+        if (i >= max) return;
+        if (i < cards.size())
             cards.remove(i);
-        cards.add(i,card);
-        return true;
+        cards.add(i, card);
     }
 
-    public boolean setCard(MoveCard card, MoveCard exchanged){
+    public void setCard(MoveCard card, MoveCard exchanged) {
         int pos = cards.indexOf(exchanged);
-        if(pos == -1) return false;
+        if (pos == -1) return;
 
         cards.remove(exchanged);
-        cards.add(pos,card);
+        cards.add(pos, card);
         fireUpdated();
-        return true;
-    }
-
-    public int getMax() {
-        return max;
     }
 
     public List<MoveCard> getCards() {

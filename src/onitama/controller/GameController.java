@@ -1,6 +1,5 @@
 package onitama.controller;
 
-import onitama.controller.ai.AbstractAi;
 import onitama.controller.ai.PlayerController;
 import onitama.model.Game;
 import onitama.model.Player;
@@ -16,8 +15,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.util.List;
 
 public class GameController {
@@ -49,9 +46,6 @@ public class GameController {
                 new SquareMouseListener(model.getBoard().getField(i, j), gui.getBoardPanel().getSquare(i, j));
             }
         }
-
-
-
 
     }
 
@@ -98,7 +92,8 @@ public class GameController {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (!player.isTurn() || player.getSelectedFigure() != null) return;
+            if (!player.isTurn() || !lock.isWaitingForInput() || player.getSelectedFigure() != null) return;
+
             if (player.getSelectedCard() == null) {
                 MoveCard card = parent.getCard();
                 player.setSelectedCard(card);
@@ -126,6 +121,8 @@ public class GameController {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+            if(!lock.isWaitingForInput())
+                return;
 
             if (parent.getPossibleMove() != null) {
                 makeMove();
@@ -162,9 +159,6 @@ public class GameController {
             for (int i = 0; i < 4; i++)
                 gui.getCardHolders()[i / 2].getCard(i % 2).setHighlighted(false);
 
-
-            //Tell the player lock that the next turn can be called
-
         }
 
         private void selectFigure(Figure f) {
@@ -192,7 +186,9 @@ public class GameController {
                 panel.setHighlight(SquarePanel.HighlightLevel.NO);
                 panel.setPossibleMove(null);
             }
-            this.parent.setHighlight(SquarePanel.HighlightLevel.NO);
+
+            Point prevPos = f.getCurrentField().getPosition();
+            gui.getBoardPanel().getSquare(prevPos.x,prevPos.y).setHighlight(SquarePanel.HighlightLevel.NO);
             p.setSelectedFigure(null);
         }
     }

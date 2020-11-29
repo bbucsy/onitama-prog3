@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 public interface Figure extends Serializable {
     void moveTo(AbstractField f);
-    void die();
     void hitByFigure(Figure f);
     void setCurrentField(AbstractField currentField);
     Player getPlayer();

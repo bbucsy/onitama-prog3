@@ -1,11 +1,8 @@
 package onitama.utils;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class ImagePanel extends JPanel {
 
@@ -33,10 +30,6 @@ public class ImagePanel extends JPanel {
         super.paintComponent(g);
         Dimension d = getSize();
         g.drawImage(bg, 0, 0, d.width, d.height, null);
-    }
-
-    public void setBackgroundImage(BufferedImage img) {
-        bg = processImageBefore(img);
     }
 
 }

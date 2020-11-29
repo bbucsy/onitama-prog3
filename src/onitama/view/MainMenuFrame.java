@@ -1,10 +1,6 @@
 package onitama.view;
 
-import onitama.controller.GameController;
-import onitama.controller.MainController;
-import onitama.controller.ai.AbstractAi;
 import onitama.controller.ai.PlayerController;
-import onitama.model.Game;
 
 import javax.swing.*;
 import java.awt.*;

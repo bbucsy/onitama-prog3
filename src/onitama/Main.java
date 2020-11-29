@@ -13,23 +13,18 @@ public class Main {
     public static void main(String[] args) {
 
         try{
-            //eager load resources
+            //load resources
             ResourceManager.getInstance().loadResources(resources);
             // load card pack;
             MoveCardStorage.getInstance().loadCards("cards.json");
 
-            MainController mc = MainController.getInstance();
-
-            mc.getMainFrame().setVisible(true);
-
-           /* Game g = new Game();
-            GameFrame f = new GameFrame(g);
-            GameController gc = new GameController(g,f,new AbstractAi[]{null,null});
-            gc.startGame();*/
-
         }catch (Exception e){
-            ErrorReport er = new ErrorReport(e);
+            new ErrorReport(e);
         }
+
+        MainController mc = MainController.getInstance();
+        mc.getMainFrame().setVisible(true);
+
 
     }
 

@@ -21,16 +21,8 @@ public abstract class AbstractAi implements PlayerController {
 
     protected abstract Move getNextMove();
 
-    public Game getModel() {
-        return model;
-    }
-
     public void setModel(Game model) {
         this.model = model;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public void setPlayer(Player player) {

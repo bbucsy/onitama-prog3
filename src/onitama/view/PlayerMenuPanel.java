@@ -1,12 +1,12 @@
 package onitama.view;
 
-import onitama.controller.ai.AbstractAi;
 import onitama.controller.ai.MinMaxAi;
 import onitama.controller.ai.PlayerController;
 import onitama.controller.ai.RandomAi;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 import java.util.Vector;
 
 public class PlayerMenuPanel extends JPanel {
@@ -49,18 +49,18 @@ public class PlayerMenuPanel extends JPanel {
 
     private Object[] getComboBoxItems(){
         Vector<ComboBoxItem> elements = new Vector<>();
-        elements.addElement(new ComboBoxItem(null,"Human player"));
-        elements.addElement(new ComboBoxItem(new RandomAi(),"Random Ai"));
-        elements.addElement(new ComboBoxItem(new MinMaxAi(3),"HAL 3000"));
-        elements.addElement(new ComboBoxItem(new MinMaxAi(4),"HAL 4000"));
+        elements.addElement(new ComboBoxItem(null, "Human player"));
+        elements.addElement(new ComboBoxItem(new RandomAi(), "Random Ai"));
+        elements.addElement(new ComboBoxItem(new MinMaxAi(3), "HAL 3000"));
+        elements.addElement(new ComboBoxItem(new MinMaxAi(4), "HAL 4000"));
 
 
         return elements.toArray();
     }
 
-    private class ComboBoxItem{
-        private PlayerController ai;
-        private String name;
+    private static class ComboBoxItem{
+        private final PlayerController ai;
+        private final String name;
 
         public ComboBoxItem(PlayerController ai, String name) {
             this.ai = ai;

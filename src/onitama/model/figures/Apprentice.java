@@ -5,15 +5,20 @@ import onitama.model.Player;
 
 import java.security.InvalidParameterException;
 
-public class Apprentice implements Figure{
+public class Apprentice implements Figure {
 
     protected final Player player;
     protected AbstractField currentField;
 
-    public Apprentice(Player p){
+    public Apprentice(Player p) {
         player = p;
     }
 
+    protected void die() {
+        currentField.setFigure(null);
+        currentField = null;
+        player.removeFigure(this);
+    }
 
     @Override
     public void moveTo(AbstractField f) {
@@ -22,16 +27,10 @@ public class Apprentice implements Figure{
         currentField = f;
     }
 
-    @Override
-    public void die() {
-        currentField.setFigure(null);
-        currentField = null;
-        player.removeFigure(this);
-    }
 
     @Override
     public void hitByFigure(Figure f) {
-        if(f.getPlayer() == player) throw new InvalidParameterException("Can't hit own figure");
+        if (f.getPlayer() == player) throw new InvalidParameterException("Can't hit own figure");
         die();
     }
 
@@ -40,13 +39,6 @@ public class Apprentice implements Figure{
         return this.player;
     }
 
-    public AbstractField getCurrentField() {
-        return currentField;
-    }
-
-    public void setCurrentField(AbstractField currentField) {
-        this.currentField = currentField;
-    }
 
     @Override
     public FigureType getFigureType() {
@@ -56,5 +48,13 @@ public class Apprentice implements Figure{
     @Override
     public String toString() {
         return "A";
+    }
+
+    public AbstractField getCurrentField() {
+        return currentField;
+    }
+
+    public void setCurrentField(AbstractField currentField) {
+        this.currentField = currentField;
     }
 }

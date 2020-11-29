@@ -12,7 +12,7 @@ import java.util.List;
 public class MoveCard implements Serializable {
 
     private final ArrayList<Point> relativeMoves;
-    private String name;
+    private final String name;
     private int orientation = 1;
 
     private MoveCard() {

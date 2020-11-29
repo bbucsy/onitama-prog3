@@ -14,7 +14,7 @@ public class ResourceManager {
     private static final int PLACEHOLDER_GRID = 10;
 
     private static final ResourceManager instance = new ResourceManager();
-    private Map<String, BufferedImage> imgStore;
+    private final Map<String, BufferedImage> imgStore;
 
     private ResourceManager() {
         imgStore = new HashMap<>();

@@ -83,9 +83,7 @@ public class GameFrame extends JFrame {
 
 
         JMenuItem saveMenuItem = new JMenuItem("Save Game");
-        saveMenuItem.addActionListener(e -> {
-            MainController.getInstance().saveGame(model);
-        });
+        saveMenuItem.addActionListener(e -> MainController.getInstance().saveGame(model));
         file.add(saveMenuItem);
 
         JMenuItem exitToMainMenuItem = new JMenuItem("Exit to MainMenu");

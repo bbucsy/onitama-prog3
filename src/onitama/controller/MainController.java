@@ -45,7 +45,7 @@ public class MainController {
 
             } catch (Exception e) {
                 e.printStackTrace();
-                JOptionPane.showMessageDialog(mainFrame, "Could't load game, please try another file.", "Load failed", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(mainFrame, "Couldn't load game, please try another file.", "Load failed", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
@@ -71,8 +71,7 @@ public class MainController {
             out.close();
         }catch (Exception e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(mainFrame, "Could't save game", "Save failed", JOptionPane.WARNING_MESSAGE);
-            return;
+            JOptionPane.showMessageDialog(mainFrame, "Couldn't save game", "Save failed", JOptionPane.WARNING_MESSAGE);
         }
 
 
@@ -85,7 +84,7 @@ public class MainController {
     }
 
 
-    private class GameLauncher extends SwingWorker {
+    private class GameLauncher extends SwingWorker<Object,Object> {
 
         private final Game model;
         private final PlayerController[] players;

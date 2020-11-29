@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class ErrorReport {
 
-    private Exception e;
+    private final Exception e;
 
     public ErrorReport(Exception e) {
         super();

@@ -22,6 +22,7 @@ public abstract class ObservedSubject<T> implements Serializable {
         observer.update(this.getMessage());
     }
 
+    @SuppressWarnings("unused")
     public void removeObserver(SubjectObserver<T> observer) {
         if (observers != null)
             observers.remove(observer);
