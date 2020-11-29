@@ -15,23 +15,16 @@ public class MainMenuFrame extends JFrame {
 
     private final PlayerMenuPanel playerPanel1;
     private final PlayerMenuPanel playerPanel2;
-    private final JPanel controlPanel;
     private final JButton newGame;
     private final JButton loadGame;
-    private final JTextField p1Name;
-    private final JTextField p2Name;
 
     public MainMenuFrame(){
         super("Onitama");
         playerPanel1 = new PlayerMenuPanel("Player 1");
         playerPanel2 = new PlayerMenuPanel("Player 2");
-        controlPanel = new JPanel();
-        p1Name = new JTextField(20);
-        p2Name = new JTextField(20);
         newGame = new JButton("New game");
         loadGame = new JButton("Load game");
         initializeLayout();
-        initializeListeners();
     }
 
     private void initializeLayout() {
@@ -43,8 +36,7 @@ public class MainMenuFrame extends JFrame {
         pPanel.add(playerPanel1);
         pPanel.add(playerPanel2);
 
-
-        controlPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        JPanel controlPanel = new JPanel();
         controlPanel.add(newGame);
         controlPanel.add(loadGame);
 
@@ -57,14 +49,19 @@ public class MainMenuFrame extends JFrame {
         this.setVisible(true);
     }
 
-
-    private void initializeListeners() {
-
-        newGame.addActionListener(actionEvent -> {
-            MainController.getInstance().launchGame(new PlayerController[]{playerPanel1.getPlayerType(),playerPanel2.getPlayerType()});
-        });
-
+    public PlayerController[] getPlayerControllers(){
+        return new PlayerController[]{playerPanel1.getPlayerType(),playerPanel2.getPlayerType()};
     }
 
+    public String[] getPlayerNames(){
+        return new String[] {playerPanel1.getName(),playerPanel2.getName()};
+    }
 
+    public JButton getNewGame() {
+        return newGame;
+    }
+
+    public JButton getLoadGame() {
+        return loadGame;
+    }
 }

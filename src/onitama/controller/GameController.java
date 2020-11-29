@@ -49,34 +49,36 @@ public class GameController {
                 new SquareMouseListener(model.getBoard().getField(i, j), gui.getBoardPanel().getSquare(i, j));
             }
         }
+
+
+
+
     }
 
 
-    public void startGame(){
-        while (model.getState() == Game.GameState.RUNNING){
+    public void startGame() {
+        while (model.getState() == Game.GameState.RUNNING) {
             nextTurn();
         }
 
-        String gameOverMessage = "Game Over! \n" + ((model.getState() == Game.GameState.PLAYER_1_WON)? "Player1":"Player2") + " won the match";
+        String gameOverMessage = "Game Over! \n" + ((model.getState() == Game.GameState.PLAYER_1_WON) ? "Player1" : "Player2") + " won the match";
 
-        JOptionPane.showMessageDialog(this.gui,gameOverMessage);
+        JOptionPane.showMessageDialog(this.gui, gameOverMessage);
 
     }
 
     private void nextTurn() {
-
         int currentPlayer = model.getPlayerOnTurn();
-        System.out.println("Next turn");
-        if(AIPlayers[currentPlayer] == null){
+        if (AIPlayers[currentPlayer] == null) {
             // Human player's turn, wait for input.
             try {
-                lock.waitForPlayerInput();
+                while (model.getPlayerOnTurn() == currentPlayer)
+                    lock.waitForPlayerInput();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-        }
-        else{
+        } else {
             AIPlayers[currentPlayer].ExecuteMove();
         }
     }
@@ -125,23 +127,25 @@ public class GameController {
         @Override
         public void mouseClicked(MouseEvent e) {
 
-            if (parent.getPossibleMove() != null)
+            if (parent.getPossibleMove() != null) {
                 makeMove();
+            } else {
+                Figure f = field.getFigure();
+                if (field.getFigure() != null) {
+                    Player p = f.getPlayer();
+                    if (!p.isTurn()) return;
 
-            Figure f = field.getFigure();
-            if (field.getFigure() != null) {
-                Player p = f.getPlayer();
-                if (!p.isTurn()) return;
+                    if (p.getSelectedFigure() == f)
+                        deselectFigure(f);
+                    else if (p.getSelectedFigure() != null) {
+                        deselectFigure(p.getSelectedFigure());
+                        selectFigure(f);
+                    } else
+                        selectFigure(f);
 
-                if (p.getSelectedFigure() == f)
-                    deselectFigure(f);
-                else if (p.getSelectedFigure() != null) {
-                    deselectFigure(p.getSelectedFigure());
-                    selectFigure(f);
-                } else
-                    selectFigure(f);
-
+                }
             }
+            lock.playerInputDone();
         }
 
         private void makeMove() {
@@ -160,7 +164,6 @@ public class GameController {
 
 
             //Tell the player lock that the next turn can be called
-            lock.playerInputDone();
 
         }
 

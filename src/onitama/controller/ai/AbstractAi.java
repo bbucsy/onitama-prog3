@@ -4,19 +4,19 @@ import onitama.model.Game;
 import onitama.model.Player;
 import onitama.model.moves.Move;
 
-public abstract class AbstractAi implements PlayerController{
+public abstract class AbstractAi implements PlayerController {
 
     protected Game model;
     protected Player player;
 
 
-    public AbstractAi(){ }
+    public AbstractAi() {
+    }
 
-    public void ExecuteMove(){
+    public void ExecuteMove() {
         Move nextMove = this.getNextMove();
-        if (nextMove == null)  player.loose();
+        if (nextMove == null) player.loose();
         else player.executeMove(nextMove);
-
     }
 
     protected abstract Move getNextMove();

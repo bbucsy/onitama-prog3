@@ -17,9 +17,6 @@ public class GameFrame extends JFrame {
     private final JPanel gamePanel;
     private final JPanel sidePanel;
 
-    private JMenuItem saveMenuItem;
-    private JMenuItem exitToMainMenuItem;
-
     public GameFrame(Game model) {
         super("Onitama");
         this.model = model;
@@ -50,9 +47,11 @@ public class GameFrame extends JFrame {
         gamePanel.add(boardPanel, BorderLayout.CENTER);
         gamePanel.add(cardHolders[1], BorderLayout.SOUTH);
 
-        sidePanel.add(new JLabel());
+        sidePanel.add(new PlayerInfoPanel(model.getPlayer(0)));
         sidePanel.add(new JLabel());
         sidePanel.add(cardHolders[2]);
+        sidePanel.add(new JLabel());
+        sidePanel.add(new PlayerInfoPanel(model.getPlayer(1)));
 
         this.add(gamePanel, BorderLayout.CENTER);
         this.add(sidePanel, BorderLayout.EAST);
@@ -83,12 +82,13 @@ public class GameFrame extends JFrame {
         bar.add(file);
 
 
-        saveMenuItem = new JMenuItem("Save Game");
+        JMenuItem saveMenuItem = new JMenuItem("Save Game");
         saveMenuItem.addActionListener(e -> {
+            MainController.getInstance().saveGame(model);
         });
         file.add(saveMenuItem);
 
-        exitToMainMenuItem = new JMenuItem("Exit to MainMenu");
+        JMenuItem exitToMainMenuItem = new JMenuItem("Exit to MainMenu");
         exitToMainMenuItem.addActionListener(e -> {
             MainController.getInstance().getMainFrame().setVisible(true);
             this.dispose();
