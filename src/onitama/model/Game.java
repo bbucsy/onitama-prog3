@@ -12,15 +12,7 @@ import java.util.Stack;
 public class Game implements Serializable {
 
 
-    public enum GameState{
-        RUNNING,
-        PLAYER_1_WON,
-        PLAYER_2_WON
-    }
-
-
     private static final Color[] playerColors = new Color[]{Color.BLUE, Color.ORANGE};
-
     private final Player[] players;
     private final Board board;
     private final Hand exchangeCard;
@@ -59,11 +51,11 @@ public class Game implements Serializable {
         return temp;
     }
 
-    public void nextTurn(){
+    public void nextTurn() {
         for (int i = 0; i < 2; i++) {
             players[i].setTurn(!players[i].isTurn());
         }
-        playerOnTurn = (playerOnTurn+1)% 2;
+        playerOnTurn = (playerOnTurn + 1) % 2;
     }
 
     public Game deepClone() throws IOException, ClassNotFoundException {
@@ -75,16 +67,13 @@ public class Game implements Serializable {
         return (Game) in.readObject();
     }
 
+    public void playerLost(Player looser) {
 
-
-    public void playerLost(Player looser){
-
-        if(players[0] == looser){
+        if (players[0] == looser) {
             state = GameState.PLAYER_2_WON;
-        } else  if (players[1] == looser){
+        } else if (players[1] == looser) {
             state = GameState.PLAYER_1_WON;
-        }
-        else {
+        } else {
             state = GameState.RUNNING;
         }
     }
@@ -94,12 +83,12 @@ public class Game implements Serializable {
     }
 
     public Player getPlayer(int i) {
-            return players[i];
+        return players[i];
     }
 
-    public int getPlayerNumber(Player p){
+    public int getPlayerNumber(Player p) {
         for (int i = 0; i < 2; i++) {
-            if(players[i] == p) return i;
+            if (players[i] == p) return i;
         }
         throw new IllegalArgumentException("Player reference not in game");
     }
@@ -114,6 +103,12 @@ public class Game implements Serializable {
 
     public Board getBoard() {
         return board;
+    }
+
+    public enum GameState {
+        RUNNING,
+        PLAYER_1_WON,
+        PLAYER_2_WON
     }
 
 }

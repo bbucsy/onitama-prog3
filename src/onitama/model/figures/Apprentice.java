@@ -1,9 +1,8 @@
 package onitama.model.figures;
 
-import onitama.model.board.AbstractField;
 import onitama.model.Player;
+import onitama.model.board.AbstractField;
 
-import java.security.InvalidParameterException;
 
 public class Apprentice implements Figure {
 
@@ -30,7 +29,7 @@ public class Apprentice implements Figure {
 
     @Override
     public void hitByFigure(Figure f) {
-        if (f.getPlayer() == player) throw new InvalidParameterException("Can't hit own figure");
+        if (f.getPlayer() == player) throw new IllegalArgumentException("Can't hit own figure");
         die();
     }
 
@@ -42,12 +41,7 @@ public class Apprentice implements Figure {
 
     @Override
     public FigureType getFigureType() {
-        return FigureType.Apprentice;
-    }
-
-    @Override
-    public String toString() {
-        return "A";
+        return FigureType.APPRENTICE;
     }
 
     public AbstractField getCurrentField() {

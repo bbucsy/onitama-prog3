@@ -7,5 +7,6 @@ public interface PlayerController {
     void ExecuteMove();
 
     void setModel(Game model);
+
     void setPlayer(Player player);
 }

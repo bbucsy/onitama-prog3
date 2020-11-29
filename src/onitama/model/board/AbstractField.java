@@ -10,10 +10,15 @@ import java.io.Serializable;
 
 public abstract class AbstractField extends ObservedSubject<Figure> implements Serializable {
     public abstract void accept(Apprentice a);
+
     public abstract void accept(Master m);
-    public abstract void setFigure(Figure f);
+
     public abstract Board getBoard();
+
     public abstract Figure getFigure();
+
+    public abstract void setFigure(Figure f);
+
     public abstract Point getPosition();
 
 }

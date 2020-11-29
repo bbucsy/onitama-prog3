@@ -20,8 +20,7 @@ public class CardHolderPanel extends JPanel implements SubjectObserver<List<Move
     }
 
 
-
-    private void initialize(){
+    private void initialize() {
         for (int i = 0; i < n; i++) {
             cards[i] = new CardPanel();
             this.add(cards[i]);
@@ -37,7 +36,7 @@ public class CardHolderPanel extends JPanel implements SubjectObserver<List<Move
     public void update(List<MoveCard> message) {
         if (message.size() != n) return;
         for (int i = 0; i < n; i++) {
-           cards[i].setCard(message.get(i));
+            cards[i].setCard(message.get(i));
         }
     }
 }

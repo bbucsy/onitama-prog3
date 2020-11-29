@@ -33,7 +33,7 @@ public class Hand extends ObservedSubject<List<MoveCard>> implements Serializabl
 
     public void setCard(MoveCard card, MoveCard exchanged) {
         int pos = cards.indexOf(exchanged);
-        if (pos == -1) return;
+        if (pos == -1) throw new IllegalArgumentException("Can't exchange card that is not in hand.");
 
         cards.remove(exchanged);
         cards.add(pos, card);

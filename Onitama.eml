@@ -3,9 +3,10 @@
 	<output-test url="file://$MODULE_DIR$/out/test/Onitama"/>
 	<exclude-output/>
 	<contentEntry url="file://$MODULE_DIR$">
+		<testFolder url="file://$MODULE_DIR$/test"/>
 		<excludeFolder url="file://$MODULE_DIR$/.idea/libraries"/>
 	</contentEntry>
 	<levels>
-		<level name="gson-2.8.6" value="project"/>
+		<level name="com.google.code.gson:gson:2.8.6" value="project"/>
 	</levels>
 </component>

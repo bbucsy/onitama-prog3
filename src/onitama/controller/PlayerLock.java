@@ -7,21 +7,21 @@ public class PlayerLock {
 
 
     public void waitForPlayerInput() throws InterruptedException {
-        synchronized (lock){
+        synchronized (lock) {
             waitingForInput = true;
             while (waitingForInput)
                 lock.wait();
         }
     }
 
-    public boolean isWaitingForInput(){
-        synchronized (lock){
+    public boolean isWaitingForInput() {
+        synchronized (lock) {
             return waitingForInput;
         }
     }
 
-    public void playerInputDone(){
-        synchronized (lock){
+    public void playerInputDone() {
+        synchronized (lock) {
             waitingForInput = false;
             lock.notify();
         }

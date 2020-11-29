@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class RandomAi extends AbstractAi {
 
-    final Random rand;
+    private final Random rand;
 
     public RandomAi() {
         super();
@@ -18,7 +18,7 @@ public class RandomAi extends AbstractAi {
     @Override
     protected Move getNextMove() {
         List<Move> possibleMoves = player.getAllPossibleMoves();
-        if(possibleMoves.size() == 0)return null;
+        if (possibleMoves.size() == 0) return null;
         return possibleMoves.get(rand.nextInt(possibleMoves.size()));
     }
 }

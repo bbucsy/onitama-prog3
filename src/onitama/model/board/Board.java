@@ -14,43 +14,6 @@ public class Board implements Serializable {
     private final AbstractField[][] fields;
     private final Game game;
 
-    private void createBoard() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if (j == 2 && (i == 0 || i == 4))
-                    fields[i][j] = new ShrineField(this, new Point(i,j) ,game.getPlayer(i / 4));
-                else
-                    fields[i][j] = new SimpleField(this,new Point(i,j));
-            }
-        }
-
-    }
-
-    private void FillBoard(){
-
-        Player p1 = game.getPlayer(0);
-        Player p2 = game.getPlayer(1);
-
-        // fill player 1 Figures
-        for (int i = 0; i < 5; i++){
-            AbstractField f = fields[0][i];
-            Figure newFigure = (i == 2)? new Master(p1) : new Apprentice(p1);
-            newFigure.setCurrentField(f);
-            f.setFigure(newFigure);
-            p1.addFigure(newFigure);
-        }
-        // fill player 2 Figures
-        for (int i = 0; i < 5; i++){
-            AbstractField f = fields[4][i];
-            Figure newFigure = (i == 2)? new Master(p2) : new Apprentice(p2);
-            newFigure.setCurrentField(f);
-            f.setFigure(newFigure);
-            p2.addFigure(newFigure);
-        }
-
-    }
-
-
     public Board(Game g) {
         game = g;
         fields = new AbstractField[5][5];
@@ -58,27 +21,47 @@ public class Board implements Serializable {
         FillBoard();
     }
 
+    private void createBoard() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (j == 2 && (i == 0 || i == 4))
+                    fields[i][j] = new ShrineField(this, new Point(i, j), game.getPlayer(i / 4));
+                else
+                    fields[i][j] = new SimpleField(this, new Point(i, j));
+            }
+        }
+    }
+
+    private void FillBoard() {
+
+        Player p1 = game.getPlayer(0);
+        Player p2 = game.getPlayer(1);
+
+        // fill player 1 Figures
+        for (int i = 0; i < 5; i++) {
+            AbstractField f = fields[0][i];
+            Figure newFigure = (i == 2) ? new Master(p1) : new Apprentice(p1);
+            newFigure.setCurrentField(f);
+            f.setFigure(newFigure);
+            p1.addFigure(newFigure);
+        }
+        // fill player 2 Figures
+        for (int i = 0; i < 5; i++) {
+            AbstractField f = fields[4][i];
+            Figure newFigure = (i == 2) ? new Master(p2) : new Apprentice(p2);
+            newFigure.setCurrentField(f);
+            f.setFigure(newFigure);
+            p2.addFigure(newFigure);
+        }
+
+    }
+
     public AbstractField getField(int i, int j) {
-        if (i < 0 || i > 4 || j < 0 || j > 4)
-            return null;
-        else
-            return fields[i][j];
+        return fields[i][j];
     }
 
     public AbstractField getField(Point p) {
-       return getField(p.x,p.y);
+        return getField(p.x, p.y);
     }
 
-
-    @Override
-    public String toString() {
-        StringBuilder ret = new StringBuilder();
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                ret.append(fields[i][j].toString());
-            }
-            ret.append("\n");
-        }
-        return ret.toString();
-    }
 }

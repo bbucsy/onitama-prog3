@@ -26,38 +26,37 @@ public class MoveCard implements Serializable {
         Board board = f.getCurrentField().getBoard();
         for (Point p : getRelativeMoves()) {
             Point newPos = new Point(base.x + p.x, base.y + p.y);
-            if(positionInBound(newPos)){
+            if (positionInBound(newPos)) {
                 AbstractField targetField = board.getField(newPos);
-                if(!hitOwnFigure(f,targetField.getFigure()))
-                    moves.add(new Move(f,targetField,this));
+                if (!hitOwnFigure(f, targetField.getFigure()))
+                    moves.add(new Move(f, targetField, this));
             }
         }
-
         return moves;
     }
 
-    private boolean positionInBound(Point pos){
-        return (pos.x >=0 && pos.x <= 4 && pos.y >=0 && pos.y <= 4);
+    private boolean positionInBound(Point pos) {
+        return (pos.x >= 0 && pos.x <= 4 && pos.y >= 0 && pos.y <= 4);
     }
 
-    private boolean hitOwnFigure(Figure movingFigure, Figure target){
-        if(target == null) return false;
+    private boolean hitOwnFigure(Figure movingFigure, Figure target) {
+        if (target == null) return false;
         return (movingFigure.getPlayer() == target.getPlayer());
     }
 
-    public MoveCard changeOrientation(){
-        orientation*=-1;
+    public MoveCard changeOrientation() {
+        orientation *= -1;
         return this;
     }
 
-    public void resetOrientation(){
+    public void resetOrientation() {
         orientation = 1;
     }
 
     public ArrayList<Point> getRelativeMoves() {
         ArrayList<Point> result = new ArrayList<>();
-        for(Point p: relativeMoves){
-            result.add(new Point(p.x*orientation,p.y*orientation));
+        for (Point p : relativeMoves) {
+            result.add(new Point(p.x * orientation, p.y * orientation));
         }
         return result;
     }
@@ -66,8 +65,4 @@ public class MoveCard implements Serializable {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
 }

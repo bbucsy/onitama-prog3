@@ -16,7 +16,7 @@ public class PlayerInfoPanel extends JPanel implements SubjectObserver<Player> {
     public PlayerInfoPanel(Player player) {
         name = new JLabel(player.getName());
         figures = new JLabel();
-        highlightBorder = BorderFactory.createLineBorder(Color.orange,5,true);
+        highlightBorder = BorderFactory.createLineBorder(Color.orange, 5, true);
         initialize();
 
 
@@ -25,10 +25,10 @@ public class PlayerInfoPanel extends JPanel implements SubjectObserver<Player> {
 
     private void initialize() {
 
-        this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        name.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        figures.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        name.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        figures.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         this.add(new JLabel("Name: "));
         this.add(name);
@@ -39,8 +39,8 @@ public class PlayerInfoPanel extends JPanel implements SubjectObserver<Player> {
 
     @Override
     public void update(Player message) {
-        this.setBorder((message.isTurn())?highlightBorder:null);
+        this.setBorder((message.isTurn()) ? highlightBorder : null);
 
-       figures.setText(""+message.getFigures().size());
+        figures.setText("" + message.getFigures().size());
     }
 }

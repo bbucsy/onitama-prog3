@@ -18,7 +18,7 @@ public class ImagePanel extends JPanel {
     }
 
     protected void loadImage(String name) {
-            bg = processImageBefore(ResourceManager.getInstance().getResource(name));
+        bg = processImageBefore(ImageResourceManager.getInstance().getResource(name));
     }
 
     protected BufferedImage processImageBefore(BufferedImage img) {

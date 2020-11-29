@@ -54,11 +54,8 @@ public class GameController {
         while (model.getState() == Game.GameState.RUNNING) {
             nextTurn();
         }
-
-        String gameOverMessage = "Game Over! \n" + ((model.getState() == Game.GameState.PLAYER_1_WON) ? "Player1" : "Player2") + " won the match";
-
+        String gameOverMessage = "Game Over! \n" + ((model.getState() == Game.GameState.PLAYER_1_WON) ? model.getPlayer(0).getName() : model.getPlayer(1).getName()) + " won the match";
         JOptionPane.showMessageDialog(this.gui, gameOverMessage);
-
     }
 
     private void nextTurn() {
@@ -89,7 +86,6 @@ public class GameController {
             parent.addMouseListener(this);
         }
 
-
         @Override
         public void mouseClicked(MouseEvent e) {
             if (!player.isTurn() || !lock.isWaitingForInput() || player.getSelectedFigure() != null) return;
@@ -118,10 +114,9 @@ public class GameController {
             parent.addMouseListener(this);
         }
 
-
         @Override
         public void mouseClicked(MouseEvent e) {
-            if(!lock.isWaitingForInput())
+            if (!lock.isWaitingForInput())
                 return;
 
             if (parent.getPossibleMove() != null) {
@@ -188,7 +183,7 @@ public class GameController {
             }
 
             Point prevPos = f.getCurrentField().getPosition();
-            gui.getBoardPanel().getSquare(prevPos.x,prevPos.y).setHighlight(SquarePanel.HighlightLevel.NO);
+            gui.getBoardPanel().getSquare(prevPos.x, prevPos.y).setHighlight(SquarePanel.HighlightLevel.NO);
             p.setSelectedFigure(null);
         }
     }

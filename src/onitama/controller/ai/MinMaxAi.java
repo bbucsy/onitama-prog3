@@ -24,13 +24,13 @@ public class MinMaxAi extends AbstractAi {
 
         //we need the index of the player, because we are deep cloning the model;
         playerNumber = model.getPlayerNumber(player);
-        enemyPlayerNumber = (playerNumber+1)%2;
+        enemyPlayerNumber = (playerNumber + 1) % 2;
 
         List<Move> possibleMoves = player.getAllPossibleMoves();
-        if(possibleMoves.size() == 0) return null;
+        if (possibleMoves.size() == 0) return null;
 
 
-        Map<Move,Double> moveScores = new HashMap<>();
+        Map<Move, Double> moveScores = new HashMap<>();
 
 
         for (int i = 0; i < possibleMoves.size(); i++) {
@@ -40,15 +40,14 @@ public class MinMaxAi extends AbstractAi {
                 clonedPlayer.executeMove(clonedPlayer.getAllPossibleMoves().get(i));
 
 
-                double score = MinMaxEvaluate(clonedModel,1);
+                double score = MinMaxEvaluate(clonedModel, 1);
                 // if move is instant win don't look for other moves
                 if (Double.isInfinite(score) && score > 0)
                     return possibleMoves.get(i);
 
 
-                moveScores.put(possibleMoves.get(i),score);
-            }
-            catch (Exception e){
+                moveScores.put(possibleMoves.get(i), score);
+            } catch (Exception e) {
                 // shouldn't be here, but if possible get random move
                 e.printStackTrace();
                 Random r = new Random();
@@ -60,12 +59,12 @@ public class MinMaxAi extends AbstractAi {
     }
 
     private double MinMaxEvaluate(Game model, int level) throws IOException, ClassNotFoundException {
-        if(level == maxDepth || model.getState() != Game.GameState.RUNNING) return evaluateLeafScore(model);
+        if (level == maxDepth || model.getState() != Game.GameState.RUNNING) return evaluateLeafScore(model);
 
-        int currentPlayer = (level%2 == 0)? playerNumber: enemyPlayerNumber;
+        int currentPlayer = (level % 2 == 0) ? playerNumber : enemyPlayerNumber;
 
         List<Move> possibleMoves = model.getPlayer(currentPlayer).getAllPossibleMoves();
-        if (possibleMoves.size() == 0) return (level%2 == 0)? Double.NEGATIVE_INFINITY: Double.POSITIVE_INFINITY;
+        if (possibleMoves.size() == 0) return (level % 2 == 0) ? Double.NEGATIVE_INFINITY : Double.POSITIVE_INFINITY;
 
         List<Double> moveScores = new ArrayList<>();
 
@@ -74,16 +73,16 @@ public class MinMaxAi extends AbstractAi {
             Game clonedModel = model.deepClone();
             Player clonedPlayer = clonedModel.getPlayer(currentPlayer);
             clonedPlayer.executeMove(clonedPlayer.getAllPossibleMoves().get(i));
-            double score = MinMaxEvaluate(clonedModel,level+1);
-            if (Double.isInfinite(score)){
-                if((level%2==0 && score > 0) || (level%2 == 1 && score < 0))
+            double score = MinMaxEvaluate(clonedModel, level + 1);
+            if (Double.isInfinite(score)) {
+                if ((level % 2 == 0 && score > 0) || (level % 2 == 1 && score < 0))
                     return score;
             }
 
             moveScores.add(score);
         }
 
-       return (level%2 == 0)? Collections.max(moveScores): Collections.min(moveScores);
+        return (level % 2 == 0) ? Collections.max(moveScores) : Collections.min(moveScores);
     }
 
     private double evaluateLeafScore(Game model) {
@@ -94,16 +93,16 @@ public class MinMaxAi extends AbstractAi {
                 (model.getState() == Game.GameState.PLAYER_2_WON && playerNumber == 1))
             return Double.POSITIVE_INFINITY;
 
-        if((model.getState() == Game.GameState.PLAYER_1_WON && playerNumber == 1)||
+        if ((model.getState() == Game.GameState.PLAYER_1_WON && playerNumber == 1) ||
                 (model.getState() == Game.GameState.PLAYER_2_WON && playerNumber == 0))
             return Double.NEGATIVE_INFINITY;
 
 
         //evaluate based on number of figures vs enemy
-        int figureDiff =  model.getPlayer(playerNumber).getFigures().size() - model.getPlayer(enemyPlayerNumber).getFigures().size();
+        int figureDiff = model.getPlayer(playerNumber).getFigures().size() - model.getPlayer(enemyPlayerNumber).getFigures().size();
         int posMoves = model.getPlayer(playerNumber).getAllPossibleMoves().size();
 
-        return figureDiff*100.0 + posMoves*10.0;
+        return figureDiff * 100.0 + posMoves * 10.0;
     }
 
 

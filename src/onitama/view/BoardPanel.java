@@ -15,22 +15,19 @@ public class BoardPanel extends JPanel {
 
     private void initialize() {
         this.setBackground(Color.gray);
-        GridLayout grid = new GridLayout(5,5);
-        grid.setHgap(5);
-        grid.setVgap(5);
-        setLayout(grid);
-        setPreferredSize(new Dimension(600,600));
-        setBounds(0,0,600,600);
+        setLayout(new GridLayout(5, 5, 5, 5));
+        setPreferredSize(new Dimension(600, 600));
+        setBounds(0, 0, 600, 600);
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                SquarePanel p = new SquarePanel(new Point(i,j));
+                SquarePanel p = new SquarePanel(new Point(i, j));
                 squares[i][j] = p;
                 add(p);
             }
         }
     }
 
-    public SquarePanel getSquare(int i, int j){
+    public SquarePanel getSquare(int i, int j) {
         return squares[i][j];
     }
 

@@ -17,7 +17,7 @@ public class ErrorReport {
         JFrame f = new JFrame();
         String message = e.getMessage() + "\n"
                 + Arrays.toString(e.getStackTrace()) + "\n";
-        JOptionPane.showMessageDialog(f,message,"An error occurred",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(f, message, "An error occurred", JOptionPane.ERROR_MESSAGE);
         System.exit(1);
     }
 }

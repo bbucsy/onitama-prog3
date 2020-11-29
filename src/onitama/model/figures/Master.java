@@ -1,7 +1,7 @@
 package onitama.model.figures;
 
-import onitama.model.board.AbstractField;
 import onitama.model.Player;
+import onitama.model.board.AbstractField;
 
 public class Master extends Apprentice {
 
@@ -25,11 +25,7 @@ public class Master extends Apprentice {
 
     @Override
     public FigureType getFigureType() {
-        return FigureType.Master;
+        return FigureType.MASTER;
     }
 
-    @Override
-    public String toString() {
-        return "M";
-    }
 }

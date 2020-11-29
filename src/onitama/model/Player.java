@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player extends ObservedSubject<Player> implements  Serializable {
+public class Player extends ObservedSubject<Player> implements Serializable {
 
     private final Game game;
     private final Color color;
@@ -31,28 +31,28 @@ public class Player extends ObservedSubject<Player> implements  Serializable {
         name = "Anonymous";
     }
 
-    public List<Move> getAvailableMoves(){
-        if(selectedCard != null && selectedFigure != null){
+    public List<Move> getAvailableMoves() {
+        if (selectedCard != null && selectedFigure != null) {
             return selectedCard.getAvailableMoves(selectedFigure);
         }
         return null;
     }
 
-    public List<Move> getAllPossibleMoves(){
+    public List<Move> getAllPossibleMoves() {
         ArrayList<Move> result = new ArrayList<>();
         for (MoveCard card : hand.getCards()) {
-            for (Figure figure: figures){
+            for (Figure figure : figures) {
                 result.addAll(card.getAvailableMoves(figure));
             }
         }
         return result;
     }
 
-    public void executeMove(Move move){
-        if(move.getPlayer() != this || !hand.getCards().contains(move.getParentCard()) || !figures.contains(move.getFigure()))
+    public void executeMove(Move move) {
+        if (move.getPlayer() != this || !hand.getCards().contains(move.getParentCard()) || !figures.contains(move.getFigure()))
             throw new IllegalArgumentException("Player can't execute this move");
         move.getFigure().moveTo(move.getDestination());
-        hand.setCard(game.exchangeCard(move.getParentCard()),move.getParentCard());
+        hand.setCard(game.exchangeCard(move.getParentCard()), move.getParentCard());
         this.selectedFigure = null;
         this.selectedCard = null;
         game.nextTurn();

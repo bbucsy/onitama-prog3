@@ -24,6 +24,12 @@ public class MainController {
         initialize();
     }
 
+    public static MainController getInstance() {
+        if (instance == null)
+            instance = new MainController();
+        return instance;
+    }
+
     private void initialize() {
 
         mainFrame.getNewGame().addActionListener(event -> {
@@ -49,27 +55,27 @@ public class MainController {
                 return;
             }
 
-            GameLauncher gl = new GameLauncher(loadedModel, mainFrame.getPlayerControllers(),mainFrame.getPlayerNames());
+            GameLauncher gl = new GameLauncher(loadedModel, mainFrame.getPlayerControllers(), mainFrame.getPlayerNames());
             gl.execute();
         });
     }
 
-    public void saveGame(Game model){
-        if(model.getState() != Game.GameState.RUNNING){
+    public void saveGame(Game model) {
+        if (model.getState() != Game.GameState.RUNNING) {
             JOptionPane.showMessageDialog(mainFrame, "The game is already finished, there is no point in saving it", "Save failed", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
 
-        FileDialog fileDialog = new FileDialog(mainFrame,"Save game",FileDialog.SAVE);
+        FileDialog fileDialog = new FileDialog(mainFrame, "Save game", FileDialog.SAVE);
         fileDialog.setFile("*.savegame");
         fileDialog.setVisible(true);
 
-        String path =fileDialog.getDirectory() + fileDialog.getFile();
+        String path = fileDialog.getDirectory() + fileDialog.getFile();
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path));
             out.writeObject(model);
             out.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(mainFrame, "Couldn't save game", "Save failed", JOptionPane.WARNING_MESSAGE);
         }
@@ -77,14 +83,11 @@ public class MainController {
 
     }
 
-    public static MainController getInstance() {
-        if (instance == null)
-            instance = new MainController();
-        return instance;
+    public MainMenuFrame getMainFrame() {
+        return mainFrame;
     }
 
-
-    private class GameLauncher extends SwingWorker<Object,Object> {
+    private class GameLauncher extends SwingWorker<Object, Object> {
 
         private final Game model;
         private final PlayerController[] players;
@@ -132,10 +135,5 @@ public class MainController {
             mainFrame.setVisible(true);
         }
 
-    }
-
-
-    public MainMenuFrame getMainFrame() {
-        return mainFrame;
     }
 }

@@ -9,7 +9,6 @@ public abstract class AbstractAi implements PlayerController {
     protected Game model;
     protected Player player;
 
-
     public AbstractAi() {
     }
 
