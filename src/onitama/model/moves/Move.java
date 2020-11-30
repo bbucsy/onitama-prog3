@@ -18,7 +18,6 @@ public class Move {
         this.player = figure.getPlayer();
     }
 
-
     public Figure getFigure() {
         return figure;
     }

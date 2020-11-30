@@ -2,6 +2,7 @@ package onitama.controller;
 
 import onitama.controller.ai.PlayerController;
 import onitama.model.Game;
+import onitama.utils.MoveCardStorage;
 import onitama.view.GameFrame;
 import onitama.view.MainMenuFrame;
 
@@ -102,7 +103,7 @@ public class MainController {
 
         private GameLauncher(PlayerController[] players, String[] playerNames) {
             super();
-            this.model = new Game();
+            this.model = new Game(MoveCardStorage.getInstance().getRandomCards(5));
             this.players = players;
             this.playerNames = playerNames;
         }

@@ -19,11 +19,11 @@ public class Game implements Serializable {
     private int playerOnTurn = 0;
     private GameState state = GameState.RUNNING;
 
-    public Game() {
+    public Game(Stack<MoveCard> cards) {
+        if(cards.size() < 5) throw new IllegalArgumentException("Not enough cards");
+
         exchangeCard = new Hand(1);
         players = new Player[2];
-
-        Stack<MoveCard> cards = MoveCardStorage.getInstance().getRandomCards(5);
         exchangeCard.setCard(cards.pop(), 0);
         initPlayers(cards);
 
@@ -74,7 +74,7 @@ public class Game implements Serializable {
         } else if (players[1] == looser) {
             state = GameState.PLAYER_1_WON;
         } else {
-            state = GameState.RUNNING;
+            throw new IllegalArgumentException("Player reference not in game");
         }
     }
 

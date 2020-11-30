@@ -14,6 +14,7 @@ public class Apprentice implements Figure {
     }
 
     protected void die() {
+        if(currentField == null) throw new IllegalStateException("Figure doesn't stand on field. Probably already dead.");
         currentField.setFigure(null);
         currentField = null;
         player.removeFigure(this);
