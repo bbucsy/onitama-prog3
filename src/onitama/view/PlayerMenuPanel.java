@@ -69,7 +69,7 @@ public class PlayerMenuPanel extends JPanel {
      */
     public PlayerController getPlayerType() {
         ComboBoxItem item = (ComboBoxItem) playerType.getSelectedItem();
-        return item.ai;
+        return (item.ai != null) ? item.ai.clone() : null;
     }
 
     /**

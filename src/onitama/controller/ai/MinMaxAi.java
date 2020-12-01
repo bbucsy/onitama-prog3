@@ -7,17 +7,41 @@ import onitama.model.moves.Move;
 import java.io.IOException;
 import java.util.*;
 
-public class MinMaxAi extends AbstractAi {
+/**
+ * This Player controller uses a recursive MinMax AI to a certain depth to select the best possible move
+ */
+public class MinMaxAi extends PlayerController {
 
+    /**
+     * The maximum depth the recursion goes
+     */
     private final int maxDepth;
+
+    /**
+     * The index of the player this is controlling.
+     * This is needed, because the algorithm uses deep cloning of the model,
+     * and the reference of the player couldn't be used anymore.
+     */
     private int playerNumber;
+    /**
+     * The index of the enemy player.
+     * This is needed for the same reason the as <code>playerNumber</code>
+     */
     private int enemyPlayerNumber;
 
+    /**
+     *
+     * @param maxDepth The maximum depth of the recursion
+     */
     public MinMaxAi(int maxDepth) {
         super();
         this.maxDepth = maxDepth;
     }
 
+    /**
+     * Calculates a value for each possible move and chooses the one with the biggest score
+     * @return The chosen move
+     */
     @Override
     protected Move getNextMove() {
         if (model == null || player == null) return null;
@@ -58,6 +82,14 @@ public class MinMaxAi extends AbstractAi {
         return Collections.max(moveScores.entrySet(), Comparator.comparingDouble(Map.Entry::getValue)).getKey();
     }
 
+    /**
+     * A recursive function to evaluate a possible state of the game
+     * @param model The model to be evaluated
+     * @param level The level of the recursion, when called by other function should be 0
+     * @return  The score of the game model in it's state
+     * @throws IOException  If the cloning of the model fails
+     * @throws ClassNotFoundException If the cloning of the model fails
+     */
     private double MinMaxEvaluate(Game model, int level) throws IOException, ClassNotFoundException {
         if (level == maxDepth || model.getState() != Game.GameState.RUNNING) return evaluateLeafScore(model);
 
@@ -85,6 +117,14 @@ public class MinMaxAi extends AbstractAi {
         return (level % 2 == 0) ? Collections.max(moveScores) : Collections.min(moveScores);
     }
 
+    /**
+     * Evaluates a model in the last level of the recursive tree, or if the game ended
+     * with a possible move.
+     *
+     * The give score is based on the state of the game, the possible moves end the difference in figures
+     * @param model The game model to be evaluated
+     * @return A score based on the model
+     */
     private double evaluateLeafScore(Game model) {
 
         // Return POS/NEG infinity if game is over;
@@ -105,5 +145,13 @@ public class MinMaxAi extends AbstractAi {
         return figureDiff * 100.0 + posMoves * 10.0;
     }
 
-
+    /**
+     * Because it is possible to run more than one game at a time
+     * there needs to be a way to make a new empty controller from an object
+     * @return  A new controller instance
+     */
+    @Override
+    public PlayerController clone() {
+        return new MinMaxAi(maxDepth);
+    }
 }
