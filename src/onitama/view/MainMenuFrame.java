@@ -5,15 +5,32 @@ import onitama.controller.ai.PlayerController;
 import javax.swing.*;
 import java.awt.*;
 
-
+/**
+ * The window of the MainMenu
+ */
 public class MainMenuFrame extends JFrame {
 
 
+    /**
+     * Option panel for the first player
+     */
     private final PlayerMenuPanel playerPanel1;
+    /**
+     * Option panel for the second panel
+     */
     private final PlayerMenuPanel playerPanel2;
+    /**
+     * Button to create a new game
+     */
     private final JButton newGame;
+    /**
+     * Button to load a saved game
+     */
     private final JButton loadGame;
 
+    /**
+     * Constructor of the frame
+     */
     public MainMenuFrame() {
         super("Onitama");
         playerPanel1 = new PlayerMenuPanel("Player 1");
@@ -23,8 +40,10 @@ public class MainMenuFrame extends JFrame {
         initializeLayout();
     }
 
+    /**
+     * Sets the layout of the frame and sets up the contained components
+     */
     private void initializeLayout() {
-        this.setSize(600, 500);
         this.setLayout(new BorderLayout());
 
         JPanel pPanel = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -45,18 +64,34 @@ public class MainMenuFrame extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     *
+     * @return An array containing the PlayerControllers set by the player panels
+     */
     public PlayerController[] getPlayerControllers() {
         return new PlayerController[]{playerPanel1.getPlayerType(), playerPanel2.getPlayerType()};
     }
 
+    /**
+     *
+     * @return Array of strings containing the names of the players set by the player panels
+     */
     public String[] getPlayerNames() {
         return new String[]{playerPanel1.getName(), playerPanel2.getName()};
     }
 
+    /**
+     *
+     * @return The button component for creating a new game
+     */
     public JButton getNewGame() {
         return newGame;
     }
 
+    /**
+     *
+     * @return The button component for loading a new game.
+     */
     public JButton getLoadGame() {
         return loadGame;
     }

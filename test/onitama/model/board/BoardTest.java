@@ -48,11 +48,10 @@ class BoardTest {
                 } else {
                     assertTrue(board.getField(new Point(i, j)) instanceof SimpleField);
                     Figure f = board.getField(i, j).getFigure();
-                    if (i == 0 || i == 4){
+                    if (i == 0 || i == 4) {
                         assertTrue(f instanceof Apprentice);
                         assertEquals(f.getPlayer(), (i == 0) ? p1 : p2);
-                    }
-                    else{
+                    } else {
                         assertNull(f);
                     }
                 }

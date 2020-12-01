@@ -8,8 +8,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Stack;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 class GameTest {
 
@@ -59,6 +58,8 @@ class GameTest {
     @Test
     void testExchangeCards() {
         MoveCard cardToExchange = mock(MoveCard.class);
+        when(cardToExchange.changeOrientation()).thenReturn(cardToExchange);
+
         MoveCard sideCard = game.getExchangeCard().getCards().get(0);
         MoveCard exchanged = game.exchangeCard(cardToExchange);
 

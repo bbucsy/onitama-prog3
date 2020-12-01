@@ -1,65 +1,72 @@
 package onitama.model.board;
 
 import onitama.model.Game;
-import onitama.model.Player;
-import onitama.model.figures.Apprentice;
-import onitama.model.figures.Figure;
-import onitama.model.figures.Master;
 
 import java.awt.*;
 import java.io.Serializable;
 
+/**
+ * The model representation of the 5*5 size game board.
+ */
 public class Board implements Serializable {
 
+    /**
+     * A matrix of the Fields contained
+     */
     private final AbstractField[][] fields;
+    /**
+     * The containing Game model
+     */
     private final Game game;
 
+    /**
+     * Constructor of the board.
+     * Creates the Matrix of fields, and sets the figures on their starting field.
+     *
+     * @param g The model containing the board
+     */
     public Board(Game g) {
         game = g;
         fields = new AbstractField[5][5];
         createBoard();
-        FillBoard();
     }
 
+    /**
+     * Creates the matrix of fields
+     */
     private void createBoard() {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                if (j == 2 && (i == 0 || i == 4))
-                    fields[i][j] = new ShrineField(this, new Point(i, j), game.getPlayer(i / 4));
-                else
+
+                if (i == 0 || i == 4) {
+                    if (j == 2) {
+                        //Shrine field
+                        fields[i][j] = new ShrineField(this, new Point(i, j), game.getPlayer(i / 4));
+                    } else {
+                        //Apprentice field
+                        fields[i][j] = new ApprenticeField(this, new Point(i, j), game.getPlayer(i / 4));
+                    }
+                } else {
+                    //every other field
                     fields[i][j] = new SimpleField(this, new Point(i, j));
+                }
             }
         }
     }
 
-    private void FillBoard() {
-
-        Player p1 = game.getPlayer(0);
-        Player p2 = game.getPlayer(1);
-
-        // fill player 1 Figures
-        for (int i = 0; i < 5; i++) {
-            AbstractField f = fields[0][i];
-            Figure newFigure = (i == 2) ? new Master(p1) : new Apprentice(p1);
-            newFigure.setCurrentField(f);
-            f.setFigure(newFigure);
-            p1.addFigure(newFigure);
-        }
-        // fill player 2 Figures
-        for (int i = 0; i < 5; i++) {
-            AbstractField f = fields[4][i];
-            Figure newFigure = (i == 2) ? new Master(p2) : new Apprentice(p2);
-            newFigure.setCurrentField(f);
-            f.setFigure(newFigure);
-            p2.addFigure(newFigure);
-        }
-
-    }
-
+    /**
+     * @param i Row, starting from 0
+     * @param j Column, starting from 0
+     * @return The field in the [i][j] position
+     */
     public AbstractField getField(int i, int j) {
         return fields[i][j];
     }
 
+    /**
+     * @param p Position
+     * @return The field in p position
+     */
     public AbstractField getField(Point p) {
         return getField(p.x, p.y);
     }

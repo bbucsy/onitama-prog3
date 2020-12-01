@@ -12,18 +12,24 @@ import org.mockito.MockitoAnnotations;
 
 import java.awt.*;
 
-import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class PlayerTest {
 
+    @Mock
+    SubjectObserver<Player> observer;
     private Player player;
-    @Mock private Game mockGame;
-    @Mock private MoveCard mockCard1;
-    @Mock private MoveCard mockCard2;
-    @Mock private Figure mockFigure;
-    @Mock private MoveCard exchangeCard;
-    @Mock SubjectObserver<Player> observer;
+    @Mock
+    private Game mockGame;
+    @Mock
+    private MoveCard mockCard1;
+    @Mock
+    private MoveCard mockCard2;
+    @Mock
+    private Figure mockFigure;
+    @Mock
+    private MoveCard exchangeCard;
 
     @BeforeEach
     void setUp() {
@@ -36,7 +42,7 @@ class PlayerTest {
 
 
     @Test
-    void testExecuteIllegalMoveWrongPlayer(){
+    void testExecuteIllegalMoveWrongPlayer() {
         Move mockMove = mock(Move.class);
         //wrong player
         when(mockMove.getPlayer()).thenReturn(mock(Player.class));
@@ -45,13 +51,13 @@ class PlayerTest {
         //good figure
         when(mockMove.getFigure()).thenReturn(mockFigure);
 
-        assertThrows(IllegalArgumentException.class,()->{
+        assertThrows(IllegalArgumentException.class, () -> {
             player.executeMove(mockMove);
         });
     }
 
     @Test
-    void testExecuteIllegalMoveWrongCard(){
+    void testExecuteIllegalMoveWrongCard() {
         Move mockMove = mock(Move.class);
         //good player
         when(mockMove.getPlayer()).thenReturn(player);
@@ -60,13 +66,13 @@ class PlayerTest {
         //good figure
         when(mockMove.getFigure()).thenReturn(mockFigure);
 
-        assertThrows(IllegalArgumentException.class,()->{
+        assertThrows(IllegalArgumentException.class, () -> {
             player.executeMove(mockMove);
         });
     }
 
     @Test
-    void testExecuteIllegalMoveWrongFigure(){
+    void testExecuteIllegalMoveWrongFigure() {
         Move mockMove = mock(Move.class);
         //good player
         when(mockMove.getPlayer()).thenReturn(player);
@@ -75,36 +81,36 @@ class PlayerTest {
         //wrong figure
         when(mockMove.getFigure()).thenReturn(mock(Figure.class));
 
-        assertThrows(IllegalArgumentException.class,()->{
+        assertThrows(IllegalArgumentException.class, () -> {
             player.executeMove(mockMove);
         });
     }
 
     @Test
-    void testExecuteMove(){
+    void testExecuteMove() {
         AbstractField destination = mock(AbstractField.class);
         when(mockFigure.getPlayer()).thenReturn(player);
         when(mockGame.exchangeCard(any())).thenReturn(exchangeCard);
-        Move move = new Move(mockFigure,destination,mockCard1);
+        Move move = new Move(mockFigure, destination, mockCard1);
 
         player.executeMove(move);
 
         verify(mockFigure).moveTo(destination);
         verify(mockGame).nextTurn();
-        assertEquals(exchangeCard,player.getHand().getCards().get(0));
-        assertEquals(mockCard2,player.getHand().getCards().get(1));
+        assertEquals(exchangeCard, player.getHand().getCards().get(0));
+        assertEquals(mockCard2, player.getHand().getCards().get(1));
         assertNull(player.getSelectedCard());
         assertNull(player.getSelectedFigure());
     }
 
     @Test
-    void testFireUpdateCalled(){
+    void testFireUpdateCalled() {
         player.attachObserver(observer);
         player.setTurn(!player.isTurn());
         player.removeFigure(mockFigure);
         player.loose();
 
-        verify(observer,times(4)).update(player);
+        verify(observer, times(4)).update(player);
 
     }
 

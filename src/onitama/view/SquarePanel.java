@@ -9,14 +9,44 @@ import onitama.utils.SubjectObserver;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * View of a field in the board model.
+ *
+ * It extends an ImagePanel, to display the background, but overrides
+ * the process image method, to show different parts of the background
+ * depending its position in the board model.
+ *
+ * It also has the responsibility to draw out any character that is on the field model
+ * and highlight itself when the controller tells it.
+ */
 public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
 
+    /**
+     * The position of the square on the board
+     */
     private final Point position;
+    /**
+     * The type of highlight required to be displayed
+     */
     private HighlightLevel highlight = HighlightLevel.NO;
+    /**
+     * The type of figure that is on the square
+     */
     private FigureType figure = FigureType.NONE;
+    /**
+     * The color of the figure
+     */
     private Color figureColor;
+    /**
+     * If there is a possible and legal move to this field
+     * the controller can store it int the view, so that it can be executed on click
+     */
     private Move possibleMove;
 
+    /**
+     * Constructor of a square
+     * @param position the position of the square in the board
+     */
     public SquarePanel(Point position) {
         super();
         this.position = position;
@@ -24,6 +54,13 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
 
     }
 
+    /**
+     * Override of the parent class's method.
+     * cuts the background into 5*5 little squares and selects the
+     * one according to its position
+     * @param img   The image to be processed
+     * @return The process background image
+     */
     @Override
     protected BufferedImage processImageBefore(BufferedImage img) {
         int sHeight = img.getHeight(null) / 5;
@@ -31,6 +68,11 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
         return img.getSubimage(position.y * sWidth, position.x * sHeight, sWidth, sHeight);
     }
 
+    /**
+     * On top of painting the background the object uses this method
+     * to fisplay a highlighted state and/or a figure
+     * @param g The graphics object that is used for the painting
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -45,6 +87,10 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
             paintFigure(g);
     }
 
+    /**
+     * When a field model is updated, this updates the view
+     * @param message A message sent by the observed field
+     */
     @Override
     public void update(Figure message) {
         if (message == null) this.figure = FigureType.NONE;
@@ -55,6 +101,10 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
         this.repaint();
     }
 
+    /**
+     * This is used to paint a figure to the square
+     * @param g The graphics object that is used for the painting
+     */
     private void paintFigure(Graphics g) {
         Color temp = g.getColor();
         g.setColor(figureColor);
@@ -71,6 +121,10 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
         g.setColor(temp);
     }
 
+    /**
+     *
+     * @return The color corresponding to the level of highlighting
+     */
     private Color getHighlightColor() {
         switch (highlight) {
             case MEDIUM:
@@ -82,19 +136,34 @@ public class SquarePanel extends ImagePanel implements SubjectObserver<Figure> {
         }
     }
 
+    /**
+     *
+     * @return The stored move if any, that is aimed at this square
+     */
     public Move getPossibleMove() {
         return possibleMove;
     }
 
+    /**
+     *
+     * @param possibleMove The stored move, that is aimed at this square
+     */
     public void setPossibleMove(Move possibleMove) {
         this.possibleMove = possibleMove;
     }
 
+    /**
+     *
+     * @param highlight The type of highlighting that this square should display
+     */
     public void setHighlight(HighlightLevel highlight) {
         this.highlight = highlight;
         this.repaint();
     }
 
+    /**
+     * An enum storing the types of highlighting a square can display
+     */
     public enum HighlightLevel {
         NO,
         MEDIUM,

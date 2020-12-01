@@ -13,10 +13,14 @@ import static org.mockito.Mockito.*;
 class ApprenticeTest {
 
     private Apprentice apprentice;
-    @Mock private Player p1;
-    @Mock private Player p2;
-    @Mock private AbstractField mockField;
-    @Mock private AbstractField mockCurrentField;
+    @Mock
+    private Player p1;
+    @Mock
+    private Player p2;
+    @Mock
+    private AbstractField mockField;
+    @Mock
+    private AbstractField mockCurrentField;
 
     @BeforeEach
     void setUp() {
@@ -34,8 +38,8 @@ class ApprenticeTest {
     }
 
     @Test
-    void testDieTwice(){
-        assertThrows(IllegalStateException.class,()->{
+    void testDieTwice() {
+        assertThrows(IllegalStateException.class, () -> {
             apprentice.die();
             apprentice.die();
         });
@@ -46,14 +50,14 @@ class ApprenticeTest {
         apprentice.moveTo(mockField);
         verify(mockField).accept(apprentice);
         verify(mockCurrentField).setFigure(null);
-        assertEquals(mockField,apprentice.currentField);
+        assertEquals(mockField, apprentice.currentField);
     }
 
     @Test
     void hitByFriendlyFigure() {
         Figure friend = mock(Figure.class);
         when(friend.getPlayer()).thenReturn(p1);
-        assertThrows(IllegalArgumentException.class, ()->{
+        assertThrows(IllegalArgumentException.class, () -> {
             apprentice.hitByFigure(friend);
         });
     }
@@ -73,9 +77,9 @@ class ApprenticeTest {
 
     @Test
     void testGetters() {
-        assertEquals(apprentice.getPlayer(),p1);
-        assertEquals(apprentice.getFigureType(),FigureType.APPRENTICE);
-        assertEquals(apprentice.getCurrentField(),mockCurrentField);
+        assertEquals(apprentice.getPlayer(), p1);
+        assertEquals(apprentice.getFigureType(), FigureType.APPRENTICE);
+        assertEquals(apprentice.getCurrentField(), mockCurrentField);
     }
 
 

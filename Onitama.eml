@@ -8,7 +8,7 @@
 	</contentEntry>
 	<levels>
 		<level name="com.google.code.gson:gson:2.8.6" value="project"/>
-		<level name="apiguardian-api-1.0.0" value="project"/>
+		<level name="junit" value="project"/>
 		<level name="org.mockito:junit-jupiter:2.20.0" value="project"/>
 	</levels>
 </component>

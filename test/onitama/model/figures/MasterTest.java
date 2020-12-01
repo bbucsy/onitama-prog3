@@ -7,14 +7,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 class MasterTest {
 
+    @Mock
+    Player player;
+    @Mock
+    AbstractField field;
     private Master master;
-    @Mock Player player;
-    @Mock AbstractField field;
 
     @BeforeEach
     void setUp() {
@@ -41,6 +45,6 @@ class MasterTest {
 
     @Test
     void getFigureType() {
-        assertEquals(master.getFigureType(),FigureType.MASTER);
+        assertEquals(master.getFigureType(), FigureType.MASTER);
     }
 }

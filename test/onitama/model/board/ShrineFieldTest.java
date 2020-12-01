@@ -16,14 +16,19 @@ class ShrineFieldTest {
 
 
     private ShrineField field;
-    @Mock private Player player;
-    @Mock private Player enemy;
-    @Mock private Board board;
+    @Mock
+    private Player player;
+    @Mock
+    private Player enemy;
+    @Mock
+    private Board board;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.initMocks(this);
-        field = new ShrineField(board,new Point(1,1),player);
+        field = new ShrineField(board, new Point(1, 1), player);
+        //remove starting character
+        field.setFigure(null);
     }
 
     @Test
